@@ -475,7 +475,7 @@
     <section id="specials" class="section">
       <div class="wrapper">
         <h2 class="section-title">Current Special</h2>
-      <p class="section-sub">
+        <p class="section-sub">
           Keep your vehicle ready for Michigan roads and save on needed repairs.
         </p>
         <div class="promo">
@@ -533,7 +533,7 @@
               <li><span>Address:</span> 33860 Groesbeck Hwy, Clinton Township, MI 48035</li>
             </ul>
             <table class="hours-table">
-              <tr><td><strong>Mon–Fri</strong></td><td>9:00 AM – 6:00 PM</td></tr>
+              <tr><td><strong>Mon–Fri</strong></td><td>8:30 AM – 3:30 PM</td></tr>
               <tr><td><strong>Saturday</strong></td><td>9:00 AM – 2:00 PM</td></tr>
               <tr><td><strong>Sunday</strong></td><td>Closed</td></tr>
             </table>
@@ -541,30 +541,32 @@
               *Hours may vary on holidays. Call ahead to confirm availability.
             </p>
           </div>
-          <div class="contact-form">
+
+          <!-- Contact form wired to bakersauto2020@gmail.com via mailto -->
+          <form class="contact-form" action="mailto:bakersauto2020@gmail.com" method="POST" enctype="text/plain">
             <h3>Request an Appointment</h3>
-            <!-- This is just a visual form. Hook it up in your website builder or email service. -->
             <div class="field">
               <label for="name">Name</label>
-              <input id="name" type="text" placeholder="Your name" />
+              <input id="name" name="Name" type="text" placeholder="Your name" required />
             </div>
             <div class="field">
               <label for="phone">Phone</label>
-              <input id="phone" type="tel" placeholder="Best phone number" />
+              <input id="phone" name="Phone" type="tel" placeholder="Best phone number" required />
             </div>
             <div class="field">
               <label for="vehicle">Vehicle (Year / Make / Model)</label>
-              <input id="vehicle" type="text" placeholder="e.g. 2015 Ford F-150" />
+              <input id="vehicle" name="Vehicle" type="text" placeholder="e.g. 2015 Ford F-150" />
             </div>
             <div class="field">
               <label for="message">What’s going on with your vehicle?</label>
-              <textarea id="message" placeholder="Describe the issue, sounds, or warning lights..."></textarea>
+              <textarea id="message" name="Message" placeholder="Describe the issue, sounds, or warning lights..." required></textarea>
             </div>
-            <button class="btn btn-primary" type="button">Send (Configure in your builder)</button>
+            <button class="btn btn-primary" type="submit">Send Request</button>
             <p style="font-size:0.75rem;opacity:0.8;margin-top:0.4rem;">
-              This sample form is for layout only. Connect it to email or a form app in your website builder.
+              When you tap “Send Request”, your email app will open and send the details to
+              <strong>bakersauto2020@gmail.com</strong>.
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </section>
