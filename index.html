@@ -5,6 +5,53 @@
   <title>Bakers Automotive Repair LLC | Clinton Township, MI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Bakers Automotive Repair LLC in Clinton Township, MI. Honest, professional auto repair, diagnostics, brakes, suspension, engine repair and more. Call 586-843-4157 today." />
+
+  <!-- LocalBusiness / AutoRepair schema for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoRepair",
+    "name": "Bakers Automotive Repair LLC",
+    "image": "https://dizzi7891.github.io/bakersautomotivellc.github.io/bakers-logo.png",
+    "@id": "https://dizzi7891.github.io",
+    "url": "https://dizzi7891.github.io",
+    "telephone": "+1-586-843-4157",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "33860 Groesbeck Hwy",
+      "addressLocality": "Clinton Township",
+      "addressRegion": "MI",
+      "postalCode": "48035",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "08:30",
+        "closes": "15:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "description": "By appointment only"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "description": "By appointment only"
+      }
+    ],
+    "priceRange": "$$"
+  }
+  </script>
+
   <style>
     :root {
       --bg-dark: #111111;
@@ -47,13 +94,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 0;
+      padding: 0.55rem 0;
+    }
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .logo-img {
+      height: 40px;
+      width: auto;
+      border-radius: 4px;
     }
     .logo-text {
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
+      line-height: 1.2;
     }
     .logo-text span {
       color: var(--gold);
@@ -373,8 +431,11 @@
   <header>
     <div class="wrapper">
       <nav class="nav">
-        <div class="logo-text">
-          <span>Bakers</span> Automotive Repair LLC
+        <div class="logo-block">
+          <img src="bakers-logo.png" alt="Bakers Automotive Repair & Service logo" class="logo-img" />
+          <div class="logo-text">
+            <span>Bakers</span> Automotive<br/>Repair LLC
+          </div>
         </div>
         <div class="nav-links">
           <a href="#services">Services</a>
@@ -402,6 +463,7 @@
           </div>
           <div class="hero-cta">
             <a class="btn btn-primary" href="tel:15868434157">📞 Call Now: 586-843-4157</a>
+            <a class="btn btn-outline" href="sms:15868434157">💬 Text Us</a>
             <a class="btn btn-outline" href="#contact">📍 Get Directions</a>
           </div>
           <p class="hero-contactline">
@@ -524,18 +586,19 @@
       <div class="wrapper">
         <h2 class="section-title">Contact & Location</h2>
         <p class="section-sub">
-          Call, message, or stop by the shop to schedule your next service or diagnostic.
+          Call, text, email, or stop by the shop to schedule your next service or diagnostic.
         </p>
         <div class="contact-grid">
           <div>
             <ul class="contact-list">
-              <li><span>Phone:</span> <a href="tel:15868434157">586-843-4157</a></li>
+              <li><span>Phone:</span> <a href="tel:15868434157">586-843-4157</a> (call or text)</li>
+              <li><span>Email:</span> <a href="mailto:bakersauto2020@gmail.com">bakersauto2020@gmail.com</a></li>
               <li><span>Address:</span> 33860 Groesbeck Hwy, Clinton Township, MI 48035</li>
             </ul>
             <table class="hours-table">
               <tr><td><strong>Mon–Fri</strong></td><td>8:30 AM – 3:30 PM</td></tr>
-              <tr><td><strong>Saturday</strong></td><td>9:00 AM – 2:00 PM</td></tr>
-              <tr><td><strong>Sunday</strong></td><td>Closed</td></tr>
+              <tr><td><strong>Saturday</strong></td><td>By appointment only</td></tr>
+              <tr><td><strong>Sunday</strong></td><td>By appointment only</td></tr>
             </table>
             <p style="margin-top:0.75rem;font-size:0.85rem;opacity:0.85;">
               *Hours may vary on holidays. Call ahead to confirm availability.
