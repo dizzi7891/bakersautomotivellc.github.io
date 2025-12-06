@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bakers Automotive Repair LLC | Clinton Township, MI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bakers Automotive Repair LLC in Clinton Township, MI. Honest, professional auto repair, diagnostics, brakes, suspension, engine repair and more. Call 586-843-4157 today." />
+  <style>
+    :root {
+      --bg-dark: #111111;
+      --bg-light: #f5f5f5;
+      --gold: #d4af37;
+      --gold-soft: #f5e7b2;
+      --text-light: #ffffff;
+      --text-dark: #222222;
+      --accent: #d4af37;
+      --max-width: 1100px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    header {
+      border-bottom: 1px solid #222;
+      background: #000;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+    }
+    .logo-text {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+    .logo-text span {
+      color: var(--gold);
+    }
+    .nav-links a {
+      margin-left: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--gold);
+    }
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+      background: radial-gradient(circle at top left, #333 0, #000 45%, #000 100%);
+      border-bottom: 1px solid #222;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 3vw, 2.8rem);
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 span {
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 1rem;
+      max-width: 28rem;
+      opacity: 0.9;
+      margin-bottom: 1.25rem;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .badge {
+      border-radius: 999px;
+      border: 1px solid #333;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.9;
+    }
+    .badge.gold {
+      border-color: var(--gold-soft);
+      background: linear-gradient(135deg, #332a13, #111);
+      color: var(--gold-soft);
+    }
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #000;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.6);
+    }
+    .btn-outline {
+      border-color: #555;
+      background: transparent;
+      color: var(--text-light);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+    }
+    .hero-contactline {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+    .hero-contactline strong {
+      color: var(--gold-soft);
+    }
+    .hero-card {
+      background: radial-gradient(circle at top, #222 0, #111 55%);
+      border-radius: 1rem;
+      border: 1px solid #333;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+    .hero-card h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.75rem;
+      color: var(--gold);
+    }
+    .hero-card .stat-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.4rem;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .hero-card .stat-line span {
+      color: var(--gold-soft);
+      font-weight: 600;
+    }
+    .hero-list {
+      margin-top: 0.75rem;
+      padding-left: 1rem;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .section {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid #222;
+      background: #050505;
+    }
+    .section.alt {
+      background: #0d0d0d;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      font-size: 0.95rem;
+      max-width: 34rem;
+      opacity: 0.9;
+      margin-bottom: 1.75rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      border-radius: 0.9rem;
+      border: 1px solid #222;
+      padding: 1rem;
+      background: linear-gradient(145deg, #141414, #080808);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: var(--gold-soft);
+    }
+    .card p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .pill {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: 999px;
+      padding: 0.18rem 0.6rem;
+      border: 1px solid #333;
+      margin-bottom: 0.4rem;
+      opacity: 0.9;
+    }
+    .pill.gold {
+      border-color: var(--gold-soft);
+      color: var(--gold-soft);
+    }
+    .promo {
+      border-radius: 1rem;
+      border: 1px dashed var(--gold);
+      padding: 1.25rem 1.2rem;
+      background: radial-gradient(circle at top left, rgba(212,175,55,0.15), #050505 55%);
+    }
+    .promo h3 {
+      margin-bottom: 0.5rem;
+      color: var(--gold);
+    }
+    .promo p {
+      font-size: 0.95rem;
+    }
+    .promo small {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .review {
+      border-radius: 0.9rem;
+      border: 1px solid #222;
+      padding: 1rem;
+      background: linear-gradient(145deg, #101010, #050505);
+      font-size: 0.9rem;
+    }
+    .review-quote {
+      margin-bottom: 0.5rem;
+      opacity: 0.95;
+    }
+    .review-name {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+    .contact-list {
+      font-size: 0.95rem;
+    }
+    .contact-list li {
+      list-style: none;
+      margin-bottom: 0.5rem;
+    }
+    .contact-list span {
+      font-weight: 600;
+      color: var(--gold-soft);
+    }
+    .hours-table {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .hours-table td {
+      padding: 0.15rem 0.3rem;
+      border-bottom: 1px solid #222;
+    }
+    .contact-form {
+      border-radius: 0.9rem;
+      border: 1px solid #333;
+      padding: 1rem;
+      background: linear-gradient(145deg, #161616, #070707);
+    }
+    .contact-form h3 {
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+    .field {
+      margin-bottom: 0.7rem;
+    }
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.15rem;
+      opacity: 0.9;
+    }
+    .field input,
+    .field textarea {
+      width: 100%;
+      border-radius: 0.5rem;
+      border: 1px solid #333;
+      background: #050505;
+      color: var(--text-light);
+      padding: 0.5rem 0.6rem;
+      font-size: 0.85rem;
+    }
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+    footer {
+      padding: 1.25rem 0 1.75rem;
+      font-size: 0.8rem;
+      text-align: center;
+      background: #000;
+      color: #888;
+    }
+    footer a {
+      color: var(--gold-soft);
+    }
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 2.5rem;
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrapper">
+      <nav class="nav">
+        <div class="logo-text">
+          <span>Bakers</span> Automotive Repair LLC
+        </div>
+        <div class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#specials">Specials</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrapper hero-inner">
+        <div>
+          <h1>Bakers <span>Automotive Repair</span> LLC</h1>
+          <p class="hero-sub">
+            Honest, professional auto repair in Clinton Township, MI. From diagnostics to full repairs, we keep your vehicle safe, reliable, and ready for the road.
+          </p>
+          <div class="hero-badges">
+            <div class="badge gold">Full-Service Repair</div>
+            <div class="badge">Diagnostics</div>
+            <div class="badge">Brakes & Suspension</div>
+            <div class="badge">Electrical & Engine</div>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="tel:15868434157">📞 Call Now: 586-843-4157</a>
+            <a class="btn btn-outline" href="#contact">📍 Get Directions</a>
+          </div>
+          <p class="hero-contactline">
+            Located at <strong>33860 Groesbeck Hwy, Clinton Township, MI 48035</strong>
+          </p>
+        </div>
+        <aside class="hero-card">
+          <h2>Straightforward, No-Surprise Auto Repair</h2>
+          <div class="stat-line">
+            <span>Upfront Estimates</span>
+            <small>No surprise charges</small>
+          </div>
+          <div class="stat-line">
+            <span>Quality Parts</span>
+            <small>Installed by professionals</small>
+          </div>
+          <div class="stat-line">
+            <span>Focused on Safety</span>
+            <small>We treat your car like our own</small>
+          </div>
+          <ul class="hero-list">
+            <li>• Clear explanations of what’s wrong and how we’ll fix it</li>
+            <li>• Fair pricing and straightforward communication</li>
+            <li>• Local, independent shop atmosphere</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services" class="section alt">
+      <div class="wrapper">
+        <h2 class="section-title">Services</h2>
+        <p class="section-sub">
+          Whether your check engine light just came on or your brakes are making noise, Bakers Automotive Repair LLC has you covered with diagnostics, repair, and maintenance services.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <span class="pill gold">Diagnostics</span>
+            <h3>Check Engine Light & Drivability</h3>
+            <p>Professional scan tools and experience to find the real cause of warning lights, rough running, or poor fuel economy.</p>
+          </div>
+          <div class="card">
+            <span class="pill gold">Safety</span>
+            <h3>Brakes & Suspension</h3>
+            <p>Brake pads, rotors, calipers, shocks, struts, and suspension repairs to keep your vehicle stopping straight and riding right.</p>
+          </div>
+          <div class="card">
+            <span class="pill gold">Performance</span>
+            <h3>Engine & Cooling System</h3>
+            <p>Tune-ups, ignition components, sensors, water pumps, radiators, and cooling system repairs to protect your engine.</p>
+          </div>
+          <div class="card">
+            <span class="pill gold">Electrical</span>
+            <h3>Battery, Starting & Charging</h3>
+            <p>Battery testing, alternators, starters, and electrical diagnosis to solve hard-start and no-start issues the right way.</p>
+          </div>
+          <div class="card">
+            <span class="pill">Maintenance</span>
+            <h3>Oil Changes & Routine Service</h3>
+            <p>Oil and filter changes, inspections, and maintenance to help prevent breakdowns and extend the life of your vehicle.</p>
+          </div>
+          <div class="card">
+            <span class="pill">More</span>
+            <h3>And Much More</h3>
+            <p>If you don’t see your repair listed, call us at 586-843-4157. We’ll let you know if it’s something we handle in-house.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="specials" class="section">
+      <div class="wrapper">
+        <h2 class="section-title">Current Special</h2>
+      <p class="section-sub">
+          Keep your vehicle ready for Michigan roads and save on needed repairs.
+        </p>
+        <div class="promo">
+          <h3>$25 Off Repair Over $250</h3>
+          <p>
+            Mention this website when you schedule and get <strong>$25 off labor</strong> on any repair over <strong>$250</strong>.
+          </p>
+          <br />
+          <small>
+            Limit one per customer. Labor only. Not valid with other discounts or offers. Must be mentioned at time of estimate.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="section alt">
+      <div class="wrapper">
+        <h2 class="section-title">What Customers Say</h2>
+        <p class="section-sub">
+          We’re focused on communication, honesty, and doing the job right. Here’s what people say about working with us:
+        </p>
+        <div class="reviews">
+          <div class="review">
+            <p class="review-quote">
+              “Straightforward and honest. They told me exactly what was wrong and what I could wait on. No pressure, just real advice.”
+            </p>
+            <p class="review-name">— J.S.</p>
+          </div>
+          <div class="review">
+            <p class="review-quote">
+              “My new go-to shop. Great communication, quick turnaround, and the car drives better than it has in years.”
+            </p>
+            <p class="review-name">— A.R.</p>
+          </div>
+          <div class="review">
+            <p class="review-quote">
+              “I appreciated the detailed explanation and photos of the parts that needed to be replaced. I felt informed, not pressured.”
+            </p>
+            <p class="review-name">— M.T.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="wrapper">
+        <h2 class="section-title">Contact & Location</h2>
+        <p class="section-sub">
+          Call, message, or stop by the shop to schedule your next service or diagnostic.
+        </p>
+        <div class="contact-grid">
+          <div>
+            <ul class="contact-list">
+              <li><span>Phone:</span> <a href="tel:15868434157">586-843-4157</a></li>
+              <li><span>Address:</span> 33860 Groesbeck Hwy, Clinton Township, MI 48035</li>
+            </ul>
+            <table class="hours-table">
+              <tr><td><strong>Mon–Fri</strong></td><td>9:00 AM – 6:00 PM</td></tr>
+              <tr><td><strong>Saturday</strong></td><td>9:00 AM – 2:00 PM</td></tr>
+              <tr><td><strong>Sunday</strong></td><td>Closed</td></tr>
+            </table>
+            <p style="margin-top:0.75rem;font-size:0.85rem;opacity:0.85;">
+              *Hours may vary on holidays. Call ahead to confirm availability.
+            </p>
+          </div>
+          <div class="contact-form">
+            <h3>Request an Appointment</h3>
+            <!-- This is just a visual form. Hook it up in your website builder or email service. -->
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" type="text" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" type="tel" placeholder="Best phone number" />
+            </div>
+            <div class="field">
+              <label for="vehicle">Vehicle (Year / Make / Model)</label>
+              <input id="vehicle" type="text" placeholder="e.g. 2015 Ford F-150" />
+            </div>
+            <div class="field">
+              <label for="message">What’s going on with your vehicle?</label>
+              <textarea id="message" placeholder="Describe the issue, sounds, or warning lights..."></textarea>
+            </div>
+            <button class="btn btn-primary" type="button">Send (Configure in your builder)</button>
+            <p style="font-size:0.75rem;opacity:0.8;margin-top:0.4rem;">
+              This sample form is for layout only. Connect it to email or a form app in your website builder.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrapper">
+      © <span id="year"></span> Bakers Automotive Repair LLC · Clinton Township, MI ·
+      <a href="tel:15868434157">586-843-4157</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
