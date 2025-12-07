@@ -12,7 +12,7 @@
     "@context": "https://schema.org",
     "@type": "AutoRepair",
     "name": "Bakers Automotive Repair LLC",
-    "image": "https://dizzi7891.github.io/bakersautomotivellc.github.io/bakers-logo.png",
+    "image": "https://dizzi7891.github.io/bakers-logo.png",
     "@id": "https://dizzi7891.github.io",
     "url": "https://dizzi7891.github.io",
     "telephone": "+1-586-843-4157",
@@ -102,7 +102,7 @@
       gap: 0.6rem;
     }
     .logo-img {
-      height: 40px;
+      height: 80px;   /* bigger logo on tablet/desktop */
       width: auto;
       border-radius: 4px;
     }
@@ -405,6 +405,7 @@
     footer a {
       color: var(--gold-soft);
     }
+
     @media (max-width: 768px) {
       .hero-inner {
         grid-template-columns: 1fr;
@@ -423,6 +424,10 @@
       }
       .contact-grid {
         grid-template-columns: 1fr;
+      }
+      /* slightly smaller logo on phones so it fits nicely */
+      .logo-img {
+        height: 60px;
       }
     }
   </style>
