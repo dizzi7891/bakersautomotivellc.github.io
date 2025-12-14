@@ -395,6 +395,47 @@
       min-height: 90px;
       resize: vertical;
     }
+
+    /* Gallery styles */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      border-radius: 0.9rem;
+      border: 1px solid #222;
+      background: #080808;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+    }
+    .gallery-caption {
+      padding: 0.75rem 0.9rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .gallery-video {
+      position: relative;
+      padding-top: 56.25%; /* 16:9 */
+      border-radius: 0.9rem;
+      overflow: hidden;
+      border: 1px solid #222;
+      background: #000;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+    .gallery-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     footer {
       padding: 1.25rem 0 1.75rem;
       font-size: 0.8rem;
@@ -443,6 +484,7 @@
         <div class="nav-links">
           <a href="#services">Services</a>
           <a href="#quote">Quotes</a>
+          <a href="#gallery">Gallery</a>
           <a href="#specials">Specials</a>
           <a href="#reviews">Reviews</a>
           <a href="#contact">Contact</a>
@@ -581,7 +623,55 @@
       </div>
     </section>
 
-    <section id="specials" class="section alt">
+    <!-- Gallery Section -->
+    <section id="gallery" class="section alt">
+      <div class="wrapper">
+        <h2 class="section-title">Gallery: Real Work in the Bay</h2>
+        <p class="section-sub">
+          A look at some of the repairs and diagnostics we’ve done recently at Bakers Automotive Repair. These are real jobs from our Clinton Township shop.
+        </p>
+        <div class="gallery-grid">
+          <!-- Update the image file names below to match what you uploaded -->
+          <div class="gallery-item">
+            <img src="job1-before.jpg" alt="Before brake repair at Bakers Automotive" />
+            <div class="gallery-caption">
+              Severe metal-to-metal front brakes. Customer came in with grinding and vibration at stops.
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="job1-after.jpg" alt="After brake repair at Bakers Automotive" />
+            <div class="gallery-caption">
+              New pads and rotors installed, hardware serviced, and brake fluid inspected. Pedal feel and stopping distance restored.
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="job2.jpg" alt="Rust repair and suspension work in the bay" />
+            <div class="gallery-caption">
+              Rusted suspension components replaced and fasteners treated. Quieted clunks over bumps and made the vehicle safe again.
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional video: replace YOUTUBE_VIDEO_ID when you have one -->
+        <div style="margin-top:1.75rem;">
+          <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Quick Look Inside the Shop</h3>
+          <p class="section-sub" style="margin-bottom:1rem;">
+            Short clips showing the kind of diagnostic work and repairs we do every week. When you’re ready for us to look at your vehicle, call or text 586-843-4157.
+          </p>
+          <div class="gallery-video">
+            <!-- Replace YOUTUBE_VIDEO_ID with your real ID, or remove this iframe until you have one -->
+            <iframe
+              src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
+              title="Bakers Automotive Repair - In the bay"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="specials" class="section">
       <div class="wrapper">
         <h2 class="section-title">Current Special</h2>
         <p class="section-sub">
