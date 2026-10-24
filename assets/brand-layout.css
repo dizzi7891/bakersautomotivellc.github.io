@@ -1,0 +1,75 @@
+/* BAKER'S AUTOMOTIVE — TRUE BRAND EDITION
+   Emblem-led, photo-free, honest independent-shop presentation.
+   Last in cascade; retains existing functional forms and mobile menu.
+*/
+:root{--gold:#d6ae71;--gold2:#f1d6a2;--paper:#f3eee3;--ink:#080a0b}
+.header{background:#0b0d0e;border-bottom:1px solid #b28d5e6d}
+.header .nav{min-height:83px}
+.brand img{border:none;border-radius:0;padding:0;box-shadow:none;background:none;object-fit:contain;width:58px;height:58px}
+.brand strong{font-family:Georgia,"Times New Roman",serif;font-size:18px;letter-spacing:-.035em;font-weight:800}
+.brand small{font-size:9px;letter-spacing:.12em}
+.navlinks{gap:18px}
+.navlinks a:not(.btn){font-size:11px;letter-spacing:.09em}
+.hero.heritage-hero{isolation:isolate;min-height:0;background:radial-gradient(ellipse at 28% 47%,#4937234a,transparent 39%),radial-gradient(circle at 100% 2%,#3e341f2a,transparent 25%),#080b0b;border-bottom:1px solid #b58b4d80}
+.hero.heritage-hero:before{content:"";position:absolute;left:-30px;top:-20px;right:auto;width:220px;height:220px;transform:none;border:0;box-shadow:none;background:url('filigree-corner.svg') top left/contain no-repeat;opacity:.36;pointer-events:none}
+.hero.heritage-hero:after{content:"";position:absolute;right:-14px;bottom:-14px;left:auto;top:auto;width:160px;height:160px;transform:rotate(180deg);background:url('filigree-corner.svg') top left/contain no-repeat;opacity:.28;pointer-events:none}
+.heritage-hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:.97fr 1.03fr;align-items:center;gap:40px;padding:50px 0 62px;min-height:580px}
+.heritage-mark{text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0}
+.heritage-mark:before{content:"";position:absolute;inset:12% 12%;border-radius:50%;background:radial-gradient(circle,#c2923842,transparent 65%);filter:blur(20px);z-index:-1}
+.heritage-mark>img{display:block;width:100%;max-width:575px;aspect-ratio:10/9;object-fit:contain;filter:drop-shadow(0 19px 20px #0009)}
+.heritage-mark>p{margin:-17px 0 12px;font:650 10px/1.8 system-ui,sans-serif;color:#c1aa84;letter-spacing:.3em;text-transform:uppercase}
+.heritage-copy{text-align:center;max-width:670px;margin:0 auto;padding:20px 0 0}
+.heritage-copy .eyebrow{font-size:10px;letter-spacing:.21em;color:#d8b57b}
+.heritage-copy h1{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-size:clamp(49px,5.2vw,87px);line-height:1.05;letter-spacing:-.045em;font-weight:800;margin:28px 0 22px;text-transform:uppercase}
+.heritage-copy h1 em{display:block;font-family:Georgia,"Times New Roman",serif;font-style:normal;font-weight:900;letter-spacing:-.045em;color:#ebc585;text-transform:uppercase;text-shadow:0 3px 0 #5b3f17,0 13px 24px #0007}
+.heritage-divider{width:min(360px,88%);height:19px;margin:0 auto 18px;background:url('filigree-rule.svg') center/contain no-repeat}
+.heritage-copy .lead{font:400 18px/1.65 Georgia,serif;color:#e4dbcc;margin:0 auto;max-width:570px}
+.heritage-copy .hero-actions{justify-content:center;margin:28px auto 20px;display:flex;flex-wrap:wrap}
+.heritage-copy .micro{font-size:10px;letter-spacing:.1em;color:#c4b59a}
+.heritage-trust{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 17px;margin:18px auto 0;font-size:10px;color:#d7bf96;text-transform:uppercase;letter-spacing:.1em}
+.heritage-trust span:before{content:"✦";color:#c8a065;margin-right:8px}
+.service-rail{background:#101313;border-bottom:1px solid #98713a8a;border-top:1px solid #ad875d44;padding:0}
+.service-rail-inner{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-items:stretch}
+.service-rail a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;text-align:center;min-height:98px;padding:18px 5px;font-size:10px;color:#ddd5c6;letter-spacing:.03em;border-right:1px solid #71604862;line-height:1.35;transition:background .2s,color .2s}
+.service-rail a:last-child{border-right:0}
+.service-rail a:hover{background:#29261c;color:#f7dfa9}
+.service-rail .service-icon{display:block;width:31px;height:31px;color:#dbb576;stroke:currentColor;stroke-width:2.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.service-rail a span{max-width:110px}
+.prestige-showcase{padding:19px 0 24px;background:#090c0c;border-bottom:1px solid #b78d5778}
+.prestige-showcase:before{background:linear-gradient(130deg,#bb8f5411,transparent 45%)}
+.prestige-showcase .showcase-wrap{grid-template-columns:1fr 1fr;gap:15px}
+.prestige-showcase .showcase-panel{padding:27px 30px;min-height:450px;overflow:hidden;align-items:stretch;display:grid;grid-template-columns:42% 58%;gap:8px;justify-content:start;position:relative;background:radial-gradient(circle at 28% 45%,#52402769,transparent 39%),#141718;border:1px solid #a88454b5}
+.prestige-showcase .showcase-panel:before{inset:8px;border-color:#d8ba7e26}
+.prestige-showcase .showcase-panel:after{opacity:.35}
+.prestige-showcase .fleet-panel,.prestige-showcase .workspace-panel{background:radial-gradient(circle at 21% 46%,#5d4b2c57,transparent 42%),linear-gradient(130deg,#1a1c1b,#090c0c)}
+.prestige-showcase .badge-area{display:flex;align-items:center;justify-content:center;position:relative;min-width:0}
+.prestige-showcase .badge-area img{width:100%;max-width:300px;max-height:350px;object-fit:contain;filter:drop-shadow(0 8px 12px #000b)}
+.prestige-showcase .showcase-text{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;position:relative;z-index:1;min-width:0}
+.prestige-showcase .showcase-tag{font-size:9px;letter-spacing:.18em}
+.prestige-showcase h2{font-family:Georgia,serif;font-size:clamp(27px,2.95vw,44px);letter-spacing:-.04em;line-height:1.04;text-shadow:0 2px 10px #000a;margin:9px 0 13px}
+.prestige-showcase p{font-size:12px;line-height:1.75;color:#d2c9b8;margin:0;max-width:350px}
+.prestige-showcase .feature-list{display:grid;gap:6px;list-style:none;padding:0;margin:14px 0 4px}
+.prestige-showcase .feature-list li{font-size:11px;line-height:1.4;color:#e4d8bf}
+.prestige-showcase .feature-list li:before{content:"✓";color:#e2b976;margin-right:10px}
+.prestige-showcase .showcase-actions{margin-top:22px}
+.prestige-showcase .showcase-panel .btn{font-size:10px;padding:11px 14px;min-height:43px}
+.prestige-showcase .screen-caption{margin-top:12px;font-size:10px;line-height:1.55}
+.showcase-brand-note{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#b4a083;margin-bottom:18px}
+.for-shops-teaser{position:relative;background:#111716;border-bottom:1px solid #886c45;padding:44px 0}
+.for-shops-teaser:before{position:absolute;content:"";left:0;top:0;height:100%;width:8px;background:linear-gradient(#e2c487,#8b6338)}
+.for-shops-teaser .wrap{display:grid;grid-template-columns:1fr auto;gap:35px;align-items:center}
+.for-shops-teaser h2{font:800 clamp(27px,3.5vw,42px)/1.15 Georgia,serif;margin:12px 0 9px;letter-spacing:-.03em}
+.for-shops-teaser p{font-size:13px;color:#c5c3ba;line-height:1.75;margin:0;max-width:800px}
+.for-shops-teaser .btn{white-space:nowrap}
+.section-head h2:after{opacity:.62}
+.fleet-band{background:linear-gradient(110deg,#aa8348,#e5c992)}
+.fleet-band h2{font-family:Georgia,serif;font-weight:800;letter-spacing:-.045em}
+.subhero{isolation:isolate;background:radial-gradient(ellipse at 75% 35%,#6551303d,transparent 47%),linear-gradient(110deg,#1a1e1c,#090c0c);border-bottom:1px solid #8f6e42}
+.subhero:after{content:"";position:absolute;right:0;bottom:0;width:340px;height:100%;background:url('fleetcare-crest.svg') center/contain no-repeat;opacity:.15;pointer-events:none}
+.subhero .wrap{position:relative;z-index:1}
+.subhero h1{text-shadow:0 3px 15px #0007}
+.footer .imagery-disclaimer{display:none}
+@media(max-width:1150px){.heritage-hero-grid{grid-template-columns:1fr 1fr;gap:20px}.heritage-copy h1{font-size:clamp(43px,5.3vw,68px)}.service-rail a{font-size:9px}.prestige-showcase .showcase-panel{grid-template-columns:38% 62%;padding:25px 18px;min-height:410px}.prestige-showcase h2{font-size:31px}.prestige-showcase .feature-list li{font-size:10px}}
+@media(max-width:920px){.heritage-hero-grid{grid-template-columns:1fr;padding:32px 0 64px;gap:0}.heritage-mark>img{width:min(100%,530px);max-height:400px;aspect-ratio:1.4}.heritage-mark>p{margin:-30px 0 0}.heritage-copy{padding:17px 0 0}.heritage-copy h1{font-size:clamp(46px,8vw,78px)}.service-rail-inner{grid-template-columns:repeat(4,1fr)}.service-rail a{min-height:83px;border-bottom:1px solid #594b3662}.prestige-showcase .showcase-wrap{grid-template-columns:1fr}.prestige-showcase .showcase-panel{grid-template-columns:40% 60%;min-height:360px;padding:32px}.prestige-showcase .badge-area img{max-width:260px}.prestige-showcase h2{font-size:clamp(30px,4vw,43px)}}
+@media(max-width:600px){.header .nav{min-height:68px}.brand img{width:49px;height:49px}.brand strong{font-size:14px}.heritage-hero-grid{padding:25px 0 48px}.heritage-mark>img{width:min(100%,470px);max-height:340px;aspect-ratio:1.45}.heritage-mark>p{font-size:8px;letter-spacing:.17em;margin-top:-22px}.heritage-copy .eyebrow{letter-spacing:.12em;font-size:9px}.heritage-copy h1{font-size:clamp(43px,10.5vw,65px);margin:16px 0 20px}.heritage-copy .lead{font-size:16px}.heritage-trust{font-size:9px;gap:5px 11px}.service-rail-inner{width:calc(100% - 15px);grid-template-columns:repeat(4,1fr)}.service-rail a{min-height:82px;padding:10px 2px;font-size:9px;gap:8px}.service-rail .service-icon{width:25px;height:25px}.prestige-showcase .showcase-panel{display:flex;flex-direction:column;align-items:stretch;gap:1px;min-height:0;padding:25px 22px 29px}.prestige-showcase .badge-area img{max-width:250px;max-height:225px}.prestige-showcase .badge-area{height:230px}.prestige-showcase .showcase-text{align-items:center;text-align:center}.prestige-showcase .showcase-text h2{font-size:34px}.prestige-showcase .feature-list{text-align:left;align-self:center}.prestige-showcase .showcase-actions{justify-content:center}.prestige-showcase .screen-caption{text-align:center}.for-shops-teaser{padding:38px 0}.for-shops-teaser .wrap{grid-template-columns:1fr;gap:20px}.for-shops-teaser .btn{justify-self:start}.subhero:after{width:230px;opacity:.13}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:0s!important;animation-duration:0s!important}}
