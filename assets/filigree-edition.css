@@ -1,0 +1,71 @@
+/* Baker's Automotive | Filigree Edition — visual refinements inspired by approved mockup.
+   Gold ornament is intentionally limited to hero, heading ornaments and key cards. */
+:root{--gold:#d5aa68;--gold2:#f3d39b}
+.header{border-bottom:1px solid #ac824e5a}
+.brand strong{font-family:Georgia,"Times New Roman",serif;font-weight:900;font-size:19px;letter-spacing:.03em;text-shadow:0 1px 2px #000}
+.brand small{letter-spacing:.22em;font-size:9px}
+.hero{position:relative;isolation:isolate;min-height:730px;background:
+  radial-gradient(circle at 70% 60%,#b68b3d1a,transparent 39%),
+  linear-gradient(105deg,#0a0c0c,#171d1b 56%,#080b0b)}
+.hero:before{right:0;top:0;width:192px;height:192px;border:0;border-radius:0;box-shadow:none;background:url('filigree-corner.svg') left top/contain no-repeat;opacity:.44;transform:scaleX(-1);pointer-events:none}
+.hero:after{position:absolute;inset:auto auto 0 0;width:170px;height:170px;content:"";pointer-events:none;background:url('filigree-corner.svg') left top/contain no-repeat;opacity:.34;transform:scaleY(-1)}
+.hero-content{padding-top:94px;padding-bottom:108px;grid-template-columns:1.08fr .92fr;gap:46px;align-items:center}
+.hero h1{margin:26px 0 27px;text-transform:uppercase;font-size:clamp(54px,6.5vw,95px);line-height:.99;letter-spacing:-.075em}
+.hero h1 em{font-style:normal;font-family:Georgia,"Times New Roman",serif;font-weight:800;text-transform:uppercase;letter-spacing:-.08em;color:#e4bd7b;text-shadow:0 3px 0 #4c3418,0 11px 28px #000b}
+.hero .lead{max-width:560px}
+.hero-art{width:100%;max-width:none;aspect-ratio:.89;min-height:470px;background:
+   linear-gradient(0deg,#080b0bde 0%,transparent 35%),
+   linear-gradient(90deg,#0b0f0ea6,transparent 60%),
+   url('https://images.unsplash.com/photo-1711512302274-8aafe96481bb?auto=format&fit=crop&w=1300&q=78') center/cover no-repeat,
+   #101514;
+   border:1px solid #ba945eaa;border-radius:2px;box-shadow:10px 10px 0 #4a392328,0 35px 75px #0009}
+.hero-art:before{width:140px;height:140px;aspect-ratio:auto;left:0;right:auto;top:0;bottom:auto;border:0;border-radius:0;box-shadow:none;background:url('filigree-corner.svg') 0 0/contain no-repeat;opacity:.68}
+.hero-art:after{display:none}
+.hero-art .monogram{display:none}
+.hero-art .corner-label{top:auto;bottom:49px;left:30px;right:22px;color:#ead0a0;letter-spacing:.21em;font-size:11px;line-height:1.5;text-shadow:0 2px 9px #000}
+.hero-art .corner-bottom{bottom:24px;left:30px;font-size:9px;color:#d4b17d;letter-spacing:.24em;text-shadow:0 2px 7px #000}
+.hero .eyebrow{letter-spacing:.19em}
+.hero .hero-actions{margin-top:37px}
+.stat-strip{background:#0e1212;border-bottom:1px solid #8f714533}
+.stat strong{font-size:12px}
+.stat:before{background:#d6b47c}
+.section-head h2:after,.subhero h1:after{content:"";display:block;width:225px;max-width:100%;height:22px;margin-top:23px;background:url('filigree-rule.svg') center/contain no-repeat}
+.subhero h1:after{width:275px;margin-top:34px}
+.prestige-showcase{position:relative;background:#0b0d0d;padding:25px 0 30px;border-bottom:1px solid #97714165}
+.prestige-showcase:before{content:"";pointer-events:none;position:absolute;inset:0;background:linear-gradient(90deg,#d4a66b0a 1px,transparent 1px) 0 0/80px 100%;opacity:.3}
+.prestige-showcase .showcase-wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prestige-showcase .showcase-panel{position:relative;min-height:470px;overflow:hidden;border:1px solid #bd945c8c;background:#151818;padding:39px 35px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;isolation:isolate}
+.prestige-showcase .showcase-panel:after{content:"";position:absolute;right:0;bottom:0;width:95px;height:95px;pointer-events:none;background:url('filigree-corner.svg') top left/cover no-repeat;transform:rotate(180deg);opacity:.52}
+.prestige-showcase .fleet-panel{background:
+  linear-gradient(0deg,#080a0a 6%,#0b0d0d98 55%,#0b0d0d2c 100%),
+  url('https://images.unsplash.com/photo-1764743259058-a27178710a09?auto=format&fit=crop&w=1400&q=75') center/cover no-repeat,
+  #252721}
+.prestige-showcase .workspace-panel{background:radial-gradient(circle at 76% 43%,#a87e4530,transparent 58%),linear-gradient(125deg,#1b201f,#080b0b)}
+.prestige-showcase .showcase-panel:before{content:"";position:absolute;inset:14px;border:1px solid #e2c58d22;pointer-events:none}
+.prestige-showcase .showcase-panel>*{position:relative;z-index:1}
+.prestige-showcase h2{font-family:Georgia,"Times New Roman",serif;font-weight:800;letter-spacing:-.045em;text-transform:uppercase;font-size:clamp(31px,3.25vw,50px);line-height:1.1;color:#f4e0bb;text-shadow:0 3px 8px #000b;margin:13px 0}
+.prestige-showcase p{color:#e1ddd1;font-size:13px;line-height:1.78;max-width:470px;text-shadow:0 2px 6px #000a}
+.prestige-showcase .showcase-tag{font-size:10px;letter-spacing:.24em;color:#e5c28b;text-transform:uppercase;font-weight:900}
+.prestige-showcase .showcase-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.prestige-showcase .showcase-panel .btn{border-color:#e3c38e}
+.prestige-showcase .showcase-glyph{font-family:Georgia,serif;font-weight:900;font-size:29px;color:#e3c083;line-height:1}
+.prestige-showcase .workspace-panel h2{margin-top:7px}
+.prestige-showcase .screen-preview{width:100%;max-width:515px;margin:15px 0 24px;padding:16px 17px 14px;border-radius:6px;background:#111716;border:1px solid #bb985f8a;box-shadow:10px 15px 38px #000a;position:relative}
+.prestige-showcase .screen-preview:before{content:"";display:block;height:8px;width:55px;border-radius:9px;background:repeating-linear-gradient(90deg,#c7a064 0 8px,transparent 8px 16px);margin-bottom:14px;opacity:.8}
+.prestige-showcase .preview-heading{font-weight:850;letter-spacing:.14em;font-size:11px;color:#dcb77e;margin-bottom:11px}
+.prestige-showcase .preview-lines{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.prestige-showcase .preview-lines span{min-height:52px;padding:10px;border:1px solid #6059437b;background:#252b26;color:#f0e0c5;font-size:10px;letter-spacing:.02em;display:flex;align-items:center}
+.prestige-showcase .preview-bar{height:7px;background:linear-gradient(90deg,#d7b274 0 18%,#444b44 18% 34%,#b8945f 34% 49%,#444b44 49% 68%,#d7b274 68% 88%,#444b44 88%);margin-top:12px;opacity:.8}
+.prestige-showcase .screen-foot{font-size:9px;color:#aca99c;letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
+.prestige-showcase .screen-caption{font-size:11px;color:#c5bcae;margin-top:12px}
+.fleet-band{background:linear-gradient(110deg,#c19c60,#e0c58d)}
+.fleet-band h2{color:#121713}
+.subhero:before{content:"";position:absolute;top:0;right:0;width:175px;height:175px;background:url('filigree-corner.svg') 0 0/contain no-repeat;transform:scaleX(-1);opacity:.6}
+.subhero{position:relative;overflow:hidden;background:
+linear-gradient(100deg,#101313eb 16%,#101414b0 58%,#0b0c0c9c 100%),
+url('https://images.unsplash.com/photo-1764743259058-a27178710a09?auto=format&fit=crop&w=1700&q=70') center/cover no-repeat,#101313}
+.section-head .eyebrow:before{content:"✦";color:#d4ae72;margin-right:11px;font-size:11px}
+.footer{position:relative}
+.footer:after{content:"";position:absolute;right:0;bottom:0;width:105px;height:105px;background:url('filigree-corner.svg') top left/contain no-repeat;transform:rotate(180deg);opacity:.23;pointer-events:none}
+@media(max-width:970px){.hero-content{grid-template-columns:1fr}.hero-art{max-width:700px;min-height:440px;aspect-ratio:1.35}.prestige-showcase .showcase-wrap{grid-template-columns:1fr}.prestige-showcase .showcase-panel{min-height:430px}.prestige-showcase .screen-preview{max-width:640px}}
+@media(max-width:580px){.hero{min-height:0}.hero-content{padding:68px 0 85px;gap:38px}.hero h1{font-size:clamp(41px,11vw,60px);line-height:1.03}.hero h1 em{font-size:clamp(43px,11.5vw,63px)}.hero-art{min-height:320px;aspect-ratio:1.15}.hero-art .corner-label{bottom:54px;left:23px;font-size:9px}.hero-art .corner-bottom{left:23px;font-size:8px}.hero-art:before{width:100px;height:100px}.prestige-showcase{padding:15px 0 25px}.prestige-showcase .showcase-wrap{width:calc(100% - 26px);gap:11px}.prestige-showcase .showcase-panel{padding:30px 22px;min-height:440px}.prestige-showcase h2{font-size:38px}.prestige-showcase .preview-lines{gap:4px}.prestige-showcase .preview-lines span{padding:6px;font-size:9px;min-height:57px}.prestige-showcase .screen-preview{padding:12px}.hero:before{width:115px;height:115px}.hero:after{width:95px;height:95px}.subhero:before{width:90px;height:90px}}
