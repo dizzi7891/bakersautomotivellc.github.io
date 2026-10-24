@@ -20,7 +20,10 @@ function getCustomer(id){return state.customers.find(function(x){return x.id===i
 function getVehicle(id){return state.vehicles.find(function(x){return x.id===id})}
 function vehicleName(v){return v?[v.year,v.make,v.model].filter(Boolean).join(' ')+' '+(v.plate?'· '+v.plate:''):'Unknown vehicle'}
 function vehicleCustomer(id){var v=getVehicle(id);return v?v.customerId:''}
-function totalFor(j){var labor=fixed(n(j.laborHours)*n(j.rate));var parts=fixed(j.parts);var tax=fixed(parts*(n(state.prefs.taxRate)/100));return{labor:labor,parts:parts,tax:tax,total:fixed(labor+parts+tax)}}
+function totalFor(j){
+  try{return window.BakersEstimateEngine.calculate(j,n(state.prefs.taxRate));}
+  catch(e){return {lines:[],labor:0,parts:0,fees:0,taxableParts:0,discount:0,subtotal:0,tax:0,total:0,error:String(e&&e.message||e)}}
+}
 function dueSoon(v){if(!v.nextDue)return false;var diff=(new Date(v.nextDue+'T12:00:00')-new Date(today()+'T12:00:00'))/86400000;return diff<=30}
 function counts(){var paid=state.jobs.filter(function(j){return j.status==='Paid'}),active=state.jobs.filter(function(j){return j.status!=='Paid'&&j.status!=='Cancelled'});return{paid:paid.reduce(function(s,j){return s+totalFor(j).total},0),open:active.reduce(function(s,j){return s+totalFor(j).total},0),due:state.vehicles.filter(dueSoon).length,fleet:state.vehicles.filter(function(v){var c=getCustomer(v.customerId);return c&&c.type==='Fleet'}).length}}
 function status(s){var c=s==='Paid'?'paid':s==='Completed'?'done':s==='In Progress'?'progress':s==='Awaiting Approval'?'awaiting':s==='Attention'?'attention':'',label=esc(s||'Estimate');return '<span class="tag '+c+'">'+label+'</span>'}
@@ -78,19 +81,70 @@ field('Make','make',v.make)+field('Model','model',v.model)+field('Plate','plate'
 '<label class="field span">VIN (optional)<input name="vin" maxlength="17" value="'+esc(v.vin)+'"></label>'+
 '<label class="field">Mileage<input name="mileage" type="number" min="0" max="2000000" value="'+esc(v.mileage)+'"></label>'+
 '<label class="field">Next service date<input name="nextDue" type="date" value="'+esc(v.nextDue)+'"></label>'+actions()+'</form>')}
-function jobForm(id){if(!state.vehicles.length){notify('Add a vehicle first.');vehicleForm();return}var j=state.jobs.find(function(x){return x.id===id})||{title:'',vehicleId:state.vehicles[0].id,status:'Estimate',date:today(),laborHours:1,rate:state.prefs.laborRate,parts:0,description:''};openDialog(id?'Edit work order':'New work order','<form id="form-job" data-id="'+esc(id||'')+'" class="form-grid">'+
-'<label class="field span">Vehicle<select name="vehicleId" required>'+opts(state.vehicles.map(function(v){return[v.id,vehicleName(v)+' · '+nameCustomer(v.customerId)]}),j.vehicleId)+'</select></label>'+
-'<label class="field span">Service / job title<input name="title" value="'+esc(j.title)+'" required maxlength="180" placeholder="Front brake pads and rotors"></label>'+
-'<label class="field">Status<select name="status">'+opts([['Estimate','Estimate'],['Awaiting Approval','Awaiting Approval'],['In Progress','In Progress'],['Completed','Completed'],['Paid','Paid'],['Cancelled','Cancelled']],j.status)+'</select></label>'+
-'<label class="field">Date<input type="date" name="date" value="'+esc(j.date)+'" required></label>'+
-'<label class="field">Labor hours<input type="number" name="laborHours" min="0" max="1000" step=".1" value="'+n(j.laborHours)+'" required></label>'+
-'<label class="field">Rate $/hr<input type="number" name="rate" min="0" max="1000" step=".01" value="'+n(j.rate)+'" required></label>'+
-'<label class="field span">Parts subtotal (pre-tax) $<input type="number" name="parts" min="0" max="1000000" step=".01" value="'+n(j.parts)+'" required></label>'+
-'<label class="field span">Labor operation / diagnostic findings<textarea name="description" maxlength="5000" placeholder="Describe work performed, findings and labor operations separately...">'+esc(j.description)+'</textarea></label>'+ 
-'<label class="field span">Parts details / quantities / part numbers<textarea name="partsDetails" maxlength="5000" placeholder="One component per line. Enter the total parts amount above.">'+esc(j.partsDetails||'')+'</textarea></label>'+ 
-'<label class="field span">Recommendations to customer<textarea name="recommendations" maxlength="3000">'+esc(j.recommendations||'')+'</textarea></label>'+ 
-'<label class="field span">Warranty / service-specific terms<textarea name="warranty" maxlength="2500" placeholder="12 months / 12,000 miles where applicable; add exclusions for this job...">'+esc(j.warranty||'')+'</textarea></label>'+
-'<div class="field span"><div class="callout">Invoice totals are computed using labor hours × rate, plus parts and '+esc(n(state.prefs.taxRate))+'% parts tax. Customer approval is not captured by this app.</div></div>'+actions()+'</form>')}
+
+function lineEditorRow(l,i){
+  l=l||{type:"labor",description:"",qty:1,unitPrice:state.prefs.laborRate,taxable:false};
+  var type=String(l.type||"labor"),part=type==="part";
+  return '<div class="estimate-line" data-estimate-line>'+
+   '<div class="estimate-line-head"><span class="line-no">LINE '+(i+1)+'</span><button type="button" class="text-btn" data-action="line-remove" aria-label="Remove line item">Remove ✕</button></div>'+
+   '<div class="estimate-line-grid">'+
+   '<label class="field">Category<select name="itemType" required>'+opts([["labor","Labor"],["part","Part"],["fee","Other charge"]],type)+'</select></label>'+
+   '<label class="field item-description">Description<input name="itemDescription" value="'+esc(l.description||"")+'" required maxlength="300" placeholder="Brake pads, diagnosis, labor operation..."></label>'+
+   '<label class="field">Qty / hours<input name="itemQty" type="number" min=".01" max="10000" step=".01" required value="'+esc(l.qty===undefined?1:l.qty)+'"></label>'+
+   '<label class="field">Unit price / hourly rate $<input name="itemUnit" type="number" min="0" max="1000000" step=".01" required value="'+esc(l.unitPrice===undefined?0:l.unitPrice)+'"></label>'+
+   '<label class="field">Parts tax treatment<select name="itemTax">'+opts([["tax","Taxable part"],["exempt","Not taxable"]],l.taxable?"tax":"exempt")+'</select></label>'+
+   '</div></div>';
+}
+function formLines(f){
+  var types=f.getAll("itemType"),desc=f.getAll("itemDescription"),qtys=f.getAll("itemQty"),units=f.getAll("itemUnit"),taxes=f.getAll("itemTax"),items=[];
+  if(types.length===0)throw new Error("Add at least one service or part line");
+  if(types.length>window.BakersEstimateEngine.maxRows)throw new Error("Too many line items");
+  types.forEach(function(type,i){
+    var rawQty=String(qtys[i]===undefined?"":qtys[i]).trim(),rawUnit=String(units[i]===undefined?"":units[i]).trim();
+    if(!rawQty||!rawUnit||!String(desc[i]||"").trim())throw new Error("Each line needs a description, quantity and unit price");
+    items.push({id:"item-"+i,type:String(type),description:String(desc[i]).trim(),qty:Number(rawQty),unitPrice:Number(rawUnit),taxable:taxes[i]==="tax"});
+  });
+  return items;
+}
+function refreshEstimatePreview(){
+  var el=byId("form-job");if(!el)return;
+  var display=byId("estimate-live-total"),detail=byId("estimate-live-detail");if(!display)return;
+  try{
+    var form=new FormData(el),preview=window.BakersEstimateEngine.calculate({lineItems:formLines(form),discount:Number(form.get("discount")||0)},state.prefs.taxRate);
+    display.textContent=cash(preview.total);
+    if(detail)detail.textContent="Labor "+cash(preview.labor)+" · Parts "+cash(preview.parts)+" · Other "+cash(preview.fees)+" · Discount "+cash(preview.discount)+" · Parts tax "+cash(preview.tax);
+  }catch(e){display.textContent="—";if(detail)detail.textContent=String(e.message||e)}
+}
+function appendEstimateRow(){
+  var host=byId("estimate-lines");if(!host)return;
+  var count=host.querySelectorAll("[data-estimate-line]").length;
+  if(count>=window.BakersEstimateEngine.maxRows)return notify("The maximum is 120 line items");
+  host.insertAdjacentHTML("beforeend",lineEditorRow({type:"part",description:"",qty:1,unitPrice:0,taxable:true},count));
+  refreshEstimatePreview();
+}
+
+function jobForm(id){
+  if(!state.vehicles.length){notify("Add a vehicle first.");vehicleForm();return}
+  var j=state.jobs.find(function(x){return x.id===id})||{title:"",vehicleId:state.vehicles[0].id,status:"Estimate",date:today(),description:"",partsDetails:"",recommendations:"",warranty:"",discount:0};
+  var lines=window.BakersEstimateEngine.linesFor(j);
+  if(!lines.length)lines=[{type:"labor",description:"",qty:1,unitPrice:n(state.prefs.laborRate),taxable:false}];
+  var content='<form id="form-job" data-id="'+esc(id||"")+'" class="form-grid pro-workorder">'+
+    '<label class="field span">Customer vehicle<select name="vehicleId" required>'+opts(state.vehicles.map(function(v){return [v.id,vehicleName(v)+" · "+nameCustomer(v.customerId)]}),j.vehicleId)+'</select></label>'+
+    '<label class="field span">Repair order / service title<input name="title" value="'+esc(j.title)+'" required maxlength="180" placeholder="e.g. Front brake service and inspection"></label>'+
+    '<label class="field">Workflow status<select name="status">'+opts([["Estimate","Estimate"],["Awaiting Approval","Awaiting Approval"],["In Progress","In Progress"],["Completed","Completed"],["Paid","Paid"],["Cancelled","Cancelled"]],j.status)+'</select></label>'+
+    '<label class="field">Work order date<input type="date" name="date" required value="'+esc(j.date)+'"></label>'+
+    '<div class="field span pro-lines-heading"><strong>Itemized estimate</strong><span>Every part and labor operation is priced separately</span></div>'+
+    '<div class="field span" id="estimate-lines">'+lines.map(lineEditorRow).join("")+'</div>'+
+    '<div class="field span"><button type="button" class="ghost-btn" data-action="line-add">+ Add another line</button></div>'+
+    '<label class="field span">Discount $ (applied after item subtotal; verify tax treatment)<input type="number" name="discount" min="0" max="1000000" step=".01" value="'+esc(n(j.discount||0))+'"></label>'+
+    '<div class="field span estimate-total-panel"><small>LIVE CALCULATED ESTIMATE</small><strong id="estimate-live-total">—</strong><p id="estimate-live-detail">Preparing line totals…</p></div>'+
+    '<label class="field span">Inspection notes / diagnostic findings<textarea name="description" maxlength="5000" placeholder="Symptoms, confirmed failure, testing and services recommended...">'+esc(j.description)+'</textarea></label>'+
+    '<label class="field span">Parts reference / supplier notes<textarea name="partsDetails" maxlength="5000" placeholder="Optional: OEM numbers, sources and service notes">'+esc(j.partsDetails||"")+'</textarea></label>'+
+    '<label class="field span">Further recommendations<textarea name="recommendations" maxlength="3000">'+esc(j.recommendations||"")+'</textarea></label>'+
+    '<label class="field span">Warranty / work-specific exclusions<textarea name="warranty" maxlength="2500" placeholder="Enter warranty terms agreed for this repair">'+esc(j.warranty||"")+'</textarea></label>'+
+    '<div class="field span"><div class="callout">Shop draft only: the selected status is a manual note, not recorded customer authorization or verified payment. Michigan parts tax applies to taxable part lines only; no labor tax. Final disclosures must be reviewed.</div></div>'+actions()+'</form>';
+  openDialog(id?"Edit work order":"New work order",content);refreshEstimatePreview();
+}
 function inspectionForm(id){if(!state.vehicles.length){notify('Add a vehicle first.');vehicleForm();return}var a=state.inspections.find(function(x){return x.id===id})||{vehicleId:state.vehicles[0].id,date:today(),mileage:'',notes:'',checks:{}};openDialog(id?'Edit inspection':'New inspection','<form id="form-inspection" data-id="'+esc(id||'')+'" class="form-grid">'+
 '<label class="field span">Vehicle<select name="vehicleId" required>'+opts(state.vehicles.map(function(v){return[v.id,vehicleName(v)]}),a.vehicleId)+'</select></label>'+
 '<label class="field">Date<input type="date" name="date" value="'+esc(a.date)+'" required></label>'+
