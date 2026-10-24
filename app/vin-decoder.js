@@ -18,6 +18,7 @@ function parse(result){
    errorText:value(r.ErrorText),errorCode:value(r.ErrorCode),
    provider:"NHTSA vPIC"
  };
+ if(out.errorCode&&out.errorCode!=="0")throw new Error("NHTSA flagged the VIN: "+(out.errorText||"Decoder error "+out.errorCode)+". Verify the VIN manually.");
  if(!out.make||!out.model||!/^\d{4}$/.test(out.year))throw new Error("VIN lookup returned incomplete year/make/model data; enter details manually.");
  return out;
 }
