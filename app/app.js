@@ -7,7 +7,7 @@ var currentPage='dashboard',query='';
 function byId(id){return document.getElementById(id)}
 function today(){var x=new Date();return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')}
 function uid(){return Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9)}
-function fresh(){return{version:1,customers:[],vehicles:[],jobs:[],inspections:[],prefs:{laborRate:150,foreignLaborRate:175,taxRate:6,fleetRate:49}}}
+function fresh(){return{version:1,customers:[],vehicles:[],jobs:[],inspections:[],prefs:{laborRate:150,foreignLaborRate:175,taxRate:6,fleetRate:49,facilityRegistration:'',mechanicCertificate:'',technicianName:'Michael Baker',signerName:''}}}
 function restore(){try{var a=JSON.parse(localStorage.getItem(KEY)||'null');if(!a||a.version!==1||!Array.isArray(a.customers)||!Array.isArray(a.vehicles)||!Array.isArray(a.jobs)||!Array.isArray(a.inspections))return fresh();a.prefs=Object.assign(fresh().prefs,a.prefs||{});return a}catch(e){return fresh()}}
 var state=restore();
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch(e){notify('Storage full or unavailable. Please export a backup.');return false}}
@@ -88,13 +88,50 @@ function customerForm(id){var c=getCustomer(id)||{name:'',company:'',phone:'',em
 field('Company / business','company',c.company)+field('Phone','phone',c.phone,'tel')+
 '<label class="field span">Email<input name="email" type="email" value="'+esc(c.email)+'" maxlength="150"></label>'+
 '<label class="field span">Notes<textarea name="notes" maxlength="2000">'+esc(c.notes)+'</textarea></label>'+actions()+'</form>')}
-function vehicleForm(id){if(!state.customers.length){notify('Add a customer first.');customerForm();return}var v=getVehicle(id)||{customerId:state.customers[0].id,year:'',make:'',model:'',plate:'',vin:'',mileage:'',nextDue:''};openDialog(id?'Edit vehicle':'Add vehicle','<form id="form-vehicle" data-id="'+esc(id||'')+'" class="form-grid">'+
-'<label class="field span">Customer<select name="customerId" required>'+opts(state.customers.map(function(c){return[c.id,(c.company?c.company+' · ':'')+c.name]}),v.customerId)+'</select></label>'+
-'<label class="field">Year<input name="year" type="number" min="1900" max="2100" value="'+esc(v.year)+'" required></label>'+
-field('Make','make',v.make)+field('Model','model',v.model)+field('Plate','plate',v.plate)+
-'<label class="field span">VIN (optional)<input name="vin" maxlength="17" value="'+esc(v.vin)+'"></label>'+
-'<label class="field">Mileage<input name="mileage" type="number" min="0" max="2000000" value="'+esc(v.mileage)+'"></label>'+
-'<label class="field">Next service date<input name="nextDue" type="date" value="'+esc(v.nextDue)+'"></label>'+actions()+'</form>')}
+function vehicleForm(id){
+ if(!state.customers.length){notify("Add a customer first.");customerForm();return}
+ var v=getVehicle(id)||{customerId:state.customers[0].id,year:"",make:"",model:"",trim:"",engine:"",body:"",drive:"",fuel:"",plate:"",plateState:"MI",vin:"",mileage:"",nextDue:"",decodeSource:""};
+ openDialog(id?"Edit vehicle":"Add vehicle",'<form id="form-vehicle" data-id="'+esc(id||"")+'" class="form-grid vehicle-identity">'+
+ '<div class="field span vehicle-id-panel"><strong>Vehicle identification</strong><p>Decode a VIN with the public NHTSA database, or enter details manually. Always verify results against the actual vehicle.</p></div>'+
+ '<label class="field span">Customer<select name="customerId" required>'+opts(state.customers.map(function(c){return[c.id,(c.company?c.company+" · ":"")+c.name]}),v.customerId)+'</select></label>'+
+ '<label class="field span">17-character VIN (optional)<input name="vin" maxlength="17" autocomplete="off" autocapitalize="characters" value="'+esc(v.vin)+'" placeholder="e.g. 1HGCM82633A004352"></label>'+
+ '<div class="field span vin-actions"><button type="button" class="gold-btn" data-action="vin-decode">Decode VIN →</button><button type="button" class="ghost-btn" data-action="plate-lookup">Plate lookup options</button><span id="vin-status" role="status" aria-live="polite">NHTSA vPIC · No owner/registration lookup</span></div>'+
+ '<div class="field span" id="vin-result">'+(v.decodeSource?'<div class="vin-result-success">Previous VIN match: '+esc(v.decodeSource)+' — please verify</div>':"")+'</div>'+
+ '<label class="field">Year<input name="year" type="number" min="1900" max="2100" value="'+esc(v.year)+'" required></label>'+
+ field("Make","make",v.make)+field("Model","model",v.model)+field("Trim","trim",v.trim)+
+ field("Engine","engine",v.engine)+field("Body style","body",v.body)+field("Drive","drive",v.drive)+field("Fuel","fuel",v.fuel)+
+ '<label class="field">License plate<input name="plate" maxlength="16" value="'+esc(v.plate)+'" autocapitalize="characters" placeholder="Vehicle plate"></label>'+
+ '<label class="field">Plate state<select name="plateState">'+opts([["MI","Michigan"],["OH","Ohio"],["IN","Indiana"],["OTHER","Other / unknown"]],v.plateState||"MI")+'</select></label>'+
+ '<label class="field">Mileage<input name="mileage" type="number" min="0" max="2000000" value="'+esc(v.mileage)+'"></label>'+
+ '<label class="field">Next service date<input name="nextDue" type="date" value="'+esc(v.nextDue)+'"></label>'+
+ '<div class="field span"><div class="callout">License-plate-to-VIN retrieval requires a separate authorized data subscription. A plate alone is not proof of ownership or reliable vehicle identity.</div></div>'+actions()+'</form>');
+}
+async function decodeVehicleForm(){
+ const form=byId("form-vehicle");if(!form)return;
+ const vinInput=form.querySelector('[name="vin"]'),status=byId("vin-status"),result=byId("vin-result");
+ const button=form.querySelector('[data-action="vin-decode"]');
+ if(!vinInput)return;
+ let vin;
+ try{vin=window.BakersVIN.validate(vinInput.value)}
+ catch(e){if(status)status.textContent=String(e.message||e);return}
+ if(button)button.disabled=true;
+ if(status)status.textContent="Looking up manufacturer vehicle data…";
+ try{
+   const decoded=await window.BakersVIN.decode(vin);
+   for(const [key,value] of Object.entries({year:decoded.year,make:decoded.make,model:decoded.model,trim:decoded.trim,engine:decoded.engine||([decoded.displacementL?"L"+decoded.displacementL:"",decoded.cylinders?"V"+decoded.cylinders:""].filter(Boolean).join(" ")),body:decoded.body,drive:decoded.drive,fuel:decoded.fuel})){
+     const input=form.querySelector('[name="'+key+'"]');if(input&&value)input.value=value;
+   }
+   form.setAttribute("data-decode-source","NHTSA vPIC");
+   if(status)status.textContent="NHTSA decode returned. Verify every field before saving.";
+   if(result)result.textContent=[decoded.year,decoded.make,decoded.model,decoded.trim,decoded.engine,decoded.fuel].filter(Boolean).join(" · ");
+ }catch(e){
+   if(status)status.textContent="VIN lookup unavailable: "+String(e.message||e)+" Enter vehicle details manually.";
+ }finally{if(button)button.disabled=false}
+}
+function plateLookupInfo(){
+ openDialog("License plate lookup",'<div class="callout"><b>Plate-to-VIN service not connected.</b><p>Michigan does not provide this app with unrestricted public plate identification or private owner records. A licensed commercial plate/VIN provider and an authorized-purpose review are needed before automatic lookup can be enabled.</p><p>For now, record the customer-provided plate and state, and scan/enter the VIN to use NHTSA decoding.</p><p><a href="https://www.michigan.gov/sos/faqs/transparency-and-foia/driver-and-vehicle-records" target="_blank" rel="noopener" style="color:#e6c58c">Michigan vehicle record privacy guidance ↗</a></p></div>');
+}
+
 
 function lineEditorRow(l,i){
   l=l||{type:"labor",description:"",qty:1,unitPrice:state.prefs.laborRate,taxable:false};
@@ -167,7 +204,7 @@ function inspectionForm(id){if(!state.vehicles.length){notify('Add a vehicle fir
 '<label class="field span">Inspector notes<textarea name="notes" maxlength="5000" placeholder="Measured tread, brake condition, findings, recommended follow-ups...">'+esc(a.notes)+'</textarea></label>'+actions()+'</form>')}
 function formSave(form){var f=new FormData(form),id=form.getAttribute('data-id')||uid(),kind=form.id;
 if(kind==='form-customer'){var c={id:id,name:String(f.get('name')||'').trim(),company:String(f.get('company')||'').trim(),phone:String(f.get('phone')||'').trim(),email:String(f.get('email')||'').trim(),type:String(f.get('type')||'Retail'),notes:String(f.get('notes')||'').trim()};if(!c.name)return notify('Customer name is required.');upsert(state.customers,c)}
-if(kind==='form-vehicle'){var v={id:id,customerId:String(f.get('customerId')),year:String(f.get('year')||'').trim(),make:String(f.get('make')||'').trim(),model:String(f.get('model')||'').trim(),plate:String(f.get('plate')||'').trim(),vin:String(f.get('vin')||'').toUpperCase().replace(/\s/g,''),mileage:fixed(f.get('mileage')),nextDue:String(f.get('nextDue')||'')};if(!v.year||!v.make||!v.model)return notify('Vehicle year, make and model are required.');upsert(state.vehicles,v)}
+if(kind==='form-vehicle'){var v={id:id,customerId:String(f.get('customerId')),year:String(f.get('year')||'').trim(),make:String(f.get('make')||'').trim(),model:String(f.get('model')||'').trim(),trim:String(f.get('trim')||'').trim(),engine:String(f.get('engine')||'').trim(),body:String(f.get('body')||'').trim(),drive:String(f.get('drive')||'').trim(),fuel:String(f.get('fuel')||'').trim(),plate:String(f.get('plate')||'').trim().toUpperCase(),plateState:String(f.get('plateState')||'MI'),vin:window.BakersVIN.normalize(f.get('vin')),decodeSource:form.getAttribute('data-decode-source')||'',mileage:fixed(f.get('mileage')),nextDue:String(f.get('nextDue')||'')};if(!v.year||!v.make||!v.model)return notify('Vehicle year, make and model are required.');if(v.vin){try{window.BakersVIN.validate(v.vin)}catch(e){return notify(String(e.message||e))}}upsert(state.vehicles,v)}
 if(kind==='form-job'){
   var lines,totals;
   try{
@@ -314,7 +351,7 @@ var container=byId('estimate-lines');
 if(!container||!row)return;
 if(container.querySelectorAll('[data-estimate-line]').length<=1)return notify('Keep at least one estimate line.');
 row.remove();refreshEstimatePreview();return;
-}if(action==='customer-new')return customerForm();if(action==='customer-edit')return customerForm(id);if(action==='vehicle-history')return vehicleHistory(id);if(action==='vehicle-new')return vehicleForm();if(action==='vehicle-edit')return vehicleForm(id);if(action==='job-new')return jobForm();if(action==='job-edit')return jobForm(id);if(action==='inspection-new')return inspectionForm();if(action==='inspection-edit')return inspectionForm(id);if(action==='job-print')return jobPrint(id);if(action==='inspection-print')return inspectionPrint(id);if(action==='job-share')return jobShare(id);if(action==='csv-export')return exportCsv();if(action==='export')return exportData();if(action==='import')return byId('import-input').click();if(action==='demo')return demo();if(action==='reset')return reset();var parts=action.split('-');if(parts[1]==='delete')return erase(parts[0],id)});
+}if(action==='customer-new')return customerForm();if(action==='customer-edit')return customerForm(id);if(action==='vehicle-history')return vehicleHistory(id);if(action==='vin-decode')return decodeVehicleForm();if(action==='plate-lookup')return plateLookupInfo();if(action==='vehicle-new')return vehicleForm();if(action==='vehicle-edit')return vehicleForm(id);if(action==='job-new')return jobForm();if(action==='job-edit')return jobForm(id);if(action==='inspection-new')return inspectionForm();if(action==='inspection-edit')return inspectionForm(id);if(action==='job-print')return jobPrint(id);if(action==='inspection-print')return inspectionPrint(id);if(action==='job-share')return jobShare(id);if(action==='csv-export')return exportCsv();if(action==='export')return exportData();if(action==='import')return byId('import-input').click();if(action==='demo')return demo();if(action==='reset')return reset();var parts=action.split('-');if(parts[1]==='delete')return erase(parts[0],id)});
 document.addEventListener('submit',function(e){var form=e.target;if(form.id==='form-settings'){e.preventDefault();var f=new FormData(form);['laborRate','foreignLaborRate','taxRate','fleetRate'].forEach(function(k){state.prefs[k]=fixed(f.get(k))});persist();render();notify('Shop rates saved.');return}if(/^form-(customer|vehicle|job|inspection)$/.test(form.id)){e.preventDefault();if(form.reportValidity())formSave(form)}});
 document.addEventListener('input',function(e){if(e.target.closest('#form-job')){refreshEstimatePreview();return}if(!e.target.matches('[data-search]'))return;query=e.target.value;var cursor=e.target.selectionStart;render();var input=document.querySelector('[data-search]');if(input){input.focus();try{input.setSelectionRange(cursor,cursor)}catch(err){}}});
 document.addEventListener('change',function(e){
