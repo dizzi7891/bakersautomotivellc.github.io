@@ -36,6 +36,8 @@ function harness(){
     FormData:FormDataMock,Blob:BlobMock,URL:{createObjectURL(){return"blob:local"},revokeObjectURL(){}}};
   const dir=path.join(__dirname,"..");
   vm.runInNewContext(fs.readFileSync(path.join(dir,"estimate-engine.js"),"utf8"),context,{filename:"estimate-engine.js"});
+  vm.runInNewContext(fs.readFileSync(path.join(dir,"vin-decoder.js"),"utf8"),context,{filename:"vin-decoder.js"});
+  vm.runInNewContext(fs.readFileSync(path.join(dir,"mi-compliance.js"),"utf8"),context,{filename:"mi-compliance.js"});
   vm.runInNewContext(fs.readFileSync(path.join(dir,"app.js"),"utf8"),context,{filename:"app.js"});
   function submit(id,fields){events.submit({target:{id,fields,getAttribute(){return""},reportValidity(){return true}},preventDefault(){}})}
   function click(action,id){events.click({target:{closest(selector){if(selector==="[data-action]")return{getAttribute(k){return k==="data-action"?action:id}};return null}}})}
