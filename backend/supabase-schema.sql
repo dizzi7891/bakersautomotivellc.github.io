@@ -61,7 +61,8 @@ create table if not exists public.work_orders (
   recommendations text,
   warranty text,
   created_at timestamptz not null default now(),
-  foreign key (shop_id,vehicle_id) references public.vehicles(shop_id,id) on delete restrict
+  foreign key (shop_id,vehicle_id) references public.vehicles(shop_id,id) on delete restrict,
+  unique (shop_id, id)
 );
 create index if not exists work_orders_shop_date_idx on public.work_orders(shop_id,service_date desc);
 
@@ -81,13 +82,14 @@ create index if not exists inspections_shop_date_idx on public.inspections(shop_
 create table if not exists public.approval_records (
   id uuid primary key default gen_random_uuid(),
   shop_id uuid not null references public.shops(id) on delete cascade,
-  work_order_id uuid not null references public.work_orders(id) on delete cascade,
+  work_order_id uuid not null,
   customer_full_name text not null,
   authorized_amount numeric(12,2) not null check (authorized_amount >= 0),
   authorization_method text not null check (authorization_method in ('written','text','email','other')),
   original_message_reference text,
   recorded_by uuid not null references auth.users(id),
-  recorded_at timestamptz not null default now()
+  recorded_at timestamptz not null default now(),
+  foreign key (shop_id,work_order_id) references public.work_orders(shop_id,id) on delete cascade
 );
 create index if not exists approvals_shop_order_idx on public.approval_records(shop_id,work_order_id);
 
@@ -129,7 +131,6 @@ using(exists(select 1 from public.shops s where s.id=shop_id and s.owner_user_id
 with check(exists(select 1 from public.shops s where s.id=shop_id and s.owner_user_id=(select auth.uid())) and recorded_by=(select auth.uid()));
 
 -- Additional server-side validation is still needed for production:
--- Verify approval_records.work_order_id belongs to its shop_id.
 -- Enforce verified email/customer identity before accepting customer approvals.
 -- Build customer-facing intake via a rate-limited edge function, never anon INSERT into customer tables.
 -- Define retention and privacy policies before storing personal customer data.
