@@ -16,7 +16,7 @@
 .hero-art{width:100%;max-width:none;aspect-ratio:.89;min-height:470px;background:
    linear-gradient(0deg,#080b0bde 0%,transparent 35%),
    linear-gradient(90deg,#0b0f0ea6,transparent 60%),
-   url('https://images.unsplash.com/photo-1711512302274-8aafe96481bb?auto=format&fit=crop&w=1300&q=78') center/cover no-repeat,
+   linear-gradient(130deg,#25261f,#101414) center/cover no-repeat,
    #101514;
    border:1px solid #ba945eaa;border-radius:2px;box-shadow:10px 10px 0 #4a392328,0 35px 75px #0009}
 .hero-art:before{width:140px;height:140px;aspect-ratio:auto;left:0;right:auto;top:0;bottom:auto;border:0;border-radius:0;box-shadow:none;background:url('filigree-corner.svg') 0 0/contain no-repeat;opacity:.68}
@@ -38,7 +38,7 @@
 .prestige-showcase .showcase-panel:after{content:"";position:absolute;right:0;bottom:0;width:95px;height:95px;pointer-events:none;background:url('filigree-corner.svg') top left/cover no-repeat;transform:rotate(180deg);opacity:.52}
 .prestige-showcase .fleet-panel{background:
   linear-gradient(0deg,#080a0a 6%,#0b0d0d98 55%,#0b0d0d2c 100%),
-  url('https://images.unsplash.com/photo-1764743259058-a27178710a09?auto=format&fit=crop&w=1400&q=75') center/cover no-repeat,
+  linear-gradient(130deg,#25261f,#101414) center/cover no-repeat,
   #252721}
 .prestige-showcase .workspace-panel{background:radial-gradient(circle at 76% 43%,#a87e4530,transparent 58%),linear-gradient(125deg,#1b201f,#080b0b)}
 .prestige-showcase .showcase-panel:before{content:"";position:absolute;inset:14px;border:1px solid #e2c58d22;pointer-events:none}
@@ -63,7 +63,7 @@
 .subhero:before{content:"";position:absolute;top:0;right:0;width:175px;height:175px;background:url('filigree-corner.svg') 0 0/contain no-repeat;transform:scaleX(-1);opacity:.6}
 .subhero{position:relative;overflow:hidden;background:
 linear-gradient(100deg,#101313eb 16%,#101414b0 58%,#0b0c0c9c 100%),
-url('https://images.unsplash.com/photo-1764743259058-a27178710a09?auto=format&fit=crop&w=1700&q=70') center/cover no-repeat,#101313}
+linear-gradient(130deg,#25261f,#101414) center/cover no-repeat,#101313}
 .section-head .eyebrow:before{content:"✦";color:#d4ae72;margin-right:11px;font-size:11px}
 .footer{position:relative}
 .footer:after{content:"";position:absolute;right:0;bottom:0;width:105px;height:105px;background:url('filigree-corner.svg') top left/contain no-repeat;transform:rotate(180deg);opacity:.23;pointer-events:none}
