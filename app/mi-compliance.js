@@ -17,7 +17,7 @@ function check(job,prefs,total){
  }else if(ACTIVE.includes(j.status)){
    if(totalCost>=50&&!str(j.estimateProvidedAt))add("required","estimate-delivery","Record delivery of the initial written estimate, or a valid waiver, before repair.");
    if(!str(j.approvalBy)||!str(j.approvalAt)||!str(j.approvalMethod))add("required","approval","Record customer authorization: full name, method, time and agreed amount.");
-   if(str(j.approvalMethod)==="Electronic"&&!j.electronicConsent)add("required","electronic-consent","Record customer consent to receive estimates electronically or provide a paper estimate.");
+   if((str(j.estimateDelivery)==="Electronic"||str(j.approvalMethod)==="Electronic")&&!j.electronicConsent)add("required","electronic-consent","Record customer consent to receive estimates electronically or provide a paper estimate.");
  }
  const original=amount(j.approvedAmount);
  if(ACTIVE.includes(j.status)&&original!==null&&totalCost!==null&&original>0){
