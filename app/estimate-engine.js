@@ -16,7 +16,8 @@ function safeLine(x,i){
   if(qty===0)throw new Error("Quantity must be greater than zero on line "+(i+1));
   const unitPrice=money(cents(x.unitPrice));
   const taxable=type==="part" ? x.taxable!==false&&x.taxable!=="false" : false;
-  return {id:String(x.id||"line-"+(i+1)),type,description,qty,unitPrice,taxable};
+  const condition=type==="part"?String(x.condition||"").slice(0,50):"";
+  return {id:String(x.id||"line-"+(i+1)),type,description,qty,unitPrice,taxable,condition};
 }
 function legacyLines(job){
   const j=job||{},arr=[];
