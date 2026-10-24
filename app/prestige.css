@@ -1,0 +1,111 @@
+/* BAKER'S GARAGE OS — EXECUTIVE / PRESTIGE EDITION
+   Purely presentational; data and workflows remain handled by app.js. */
+:root{--bg:#0b0e0e;--panel:#191d1c;--panel2:#232827;--edge:#42443c;--text:#f2eee4;--sub:#b4b4a9;--gold:#d0af76;--gold2:#f0d8a6;--ok:#a4cbb0;--bad:#e7ac96;--info:#b0c4d8}
+html{scroll-padding-top:90px}
+body{background:radial-gradient(ellipse at 70% -15%,#332c213b,transparent 45%),#0a0c0d;color:var(--text);font-size:14px}
+.sidebar{background:linear-gradient(165deg,#191c1b 0%,#0e1111 42%,#090b0b 100%);border-right:1px solid #64533766;padding:34px 17px;box-shadow:11px 0 35px #0003}
+.app-brand{gap:14px;margin:0 8px 46px;align-items:center}
+.brand-emblem{transform:none;width:50px;height:50px;flex:none;border-radius:50%;border:1px solid #ba995f;background:radial-gradient(circle,#333023,#131717);color:#e3c38e;box-shadow:0 0 0 4px #e2b56e13,0 12px 25px #0009;font:900 27px/1 Georgia,serif}
+.brand-emblem span{color:#dab981;font-size:11px;transform:translate(-2px,-3px)}
+.app-brand strong{font:900 18px/1.1 system-ui,sans-serif;letter-spacing:.13em}
+.app-brand small{font-size:9px;letter-spacing:.195em;margin-top:5px;color:#d3b382}
+.app-brand i{font-weight:650;color:#999c90}
+.sidebar-label{font-size:9px;letter-spacing:.24em;color:#938b78;margin-left:18px;margin-bottom:14px}
+.side-nav{gap:8px}
+.side-nav button{min-height:47px;border-radius:3px;padding:11px 14px;font-size:12px;letter-spacing:.045em;transition:background .2s,color .2s,border-color .2s}
+.side-nav button:hover{background:#282923;color:#f2deba}
+.side-nav button.active{background:linear-gradient(95deg,#3a3123,#24241e 90%);border:1px solid #92785175;color:#f1d69d;box-shadow:inset 3px 0 #ddb97f}
+.ico{font-family:Georgia,serif;font-size:20px;font-weight:400;width:22px;color:#bfab84}
+.side-nav button.active .ico{color:#edcf98}
+.side-box{background:linear-gradient(135deg,#24271f,#181d19);border-color:#5c5c46;border-radius:3px;padding:17px 13px}
+.side-box b{font-size:10px;letter-spacing:.13em}
+.side-box small{font-size:11px;line-height:1.6;margin-top:4px;color:#afaca0}
+.indicator{background:#dfbb7b;box-shadow:0 0 0 4px #d8ad6430}
+.exit-site{letter-spacing:.055em;font-size:11px}
+.app-topbar{height:88px;background:linear-gradient(115deg,#191d1c,#111414);border-bottom:1px solid #514c40;padding:0 43px}
+.crumb small{color:#b5a68c;letter-spacing:.24em;font-size:9px}
+.crumb strong{font-size:19px;font-weight:760;letter-spacing:-.035em;margin-top:2px}
+.date{font-size:11px;letter-spacing:.03em;color:#b9b2a5}
+.gold-btn,.ghost-btn,.text-btn{transition:background .2s,border-color .2s,transform .2s;color .2s;min-height:38px;border-radius:3px;font-size:11px;letter-spacing:.08em}
+.gold-btn{background:linear-gradient(135deg,#dfc48d,#bc965d);border:1px solid #cda46c;color:#111614;font-weight:900;box-shadow:inset 0 1px #ffecbf4d,0 5px 12px #0003}
+.gold-btn:hover{background:linear-gradient(135deg,#f3dda9,#d7b37a);transform:translateY(-1px)}
+.ghost-btn{background:#202422;border:1px solid #665c4b;color:#e9dec8}
+.ghost-btn:hover{background:#2f2d26;border-color:#c6a66e;color:#f6e1b4}
+.text-btn{color:#d9b47b}
+.text-btn:hover{color:#f4d9a6}
+.view{padding:44px 48px 65px;max-width:1560px}
+.view-intro{margin-bottom:33px;gap:30px}
+.eyebrow{font-size:10px;letter-spacing:.265em;color:#d5b47b}
+.view h1{font-size:clamp(35px,4vw,54px);line-height:1.05;font-weight:790;text-transform:uppercase;letter-spacing:-.067em;margin:13px 0 15px}
+.lede{font-size:13px;line-height:1.85;color:#b7b6ad;max-width:770px}
+.banner{border-radius:3px;border:1px solid #7e6848;background:linear-gradient(115deg,#343026,#24251f);padding:20px 24px;margin-bottom:29px;box-shadow:0 14px 28px #0003}
+.banner b{color:#e7cb99;font-size:10px;letter-spacing:.18em}
+.banner p{color:#d7cbb5;font-size:12px;line-height:1.7;margin-top:5px}
+.banner button{color:#eacb95}
+.metrics{gap:16px;margin-bottom:24px}
+.metric{position:relative;border-radius:3px;border:1px solid #4b4c43;background:linear-gradient(135deg,#242826,#171b1a);min-height:163px;padding:27px 25px;overflow:hidden;box-shadow:0 13px 26px #0003}
+.metric:before{content:"";position:absolute;height:3px;width:33px;left:25px;top:0;background:#b69969}
+.metric .m-label{font-size:10px;color:#c9c3b5;letter-spacing:.19em}
+.metric .m-value{font-family:Georgia,"Iowan Old Style",serif;font-size:clamp(30px,2.8vw,45px);font-weight:400;line-height:1.2;letter-spacing:-.045em;margin:22px 0 10px;font-variant-numeric:tabular-nums}
+.metric .m-foot{font-size:11px;color:#aab0a5;line-height:1.5}
+.metric.gold{background:linear-gradient(135deg,#433724,#26251f);border-color:#a38659}
+.metric.gold:before{background:#f0d89e}
+.metric.gold .m-value{color:#f1d7a0}
+.board-grid{gap:18px}
+.panel{border-radius:3px;border-color:#454941;background:linear-gradient(150deg,#1d2220,#141919);padding:28px;box-shadow:0 16px 36px #0003}
+.panel-head{margin-bottom:21px;padding-bottom:17px;border-bottom:1px solid #434840}
+.panel h2{font-size:17px;letter-spacing:-.018em;font-weight:800}
+.panel-head small{font-size:11px}
+.empty{background:repeating-linear-gradient(135deg,#ffffff03 0,#ffffff03 1px,transparent 1px,transparent 9px);border:1px dashed #7a6b54;border-radius:2px;padding:57px 18px;color:#c4beb0}
+.empty .symbol{font-family:Georgia,serif;color:#dec088;font-size:48px}
+.empty b{font-size:19px;font-weight:700;letter-spacing:-.03em}
+.empty p{font-size:13px;line-height:1.75}
+.table-wrap{border:1px solid #52554b;border-radius:3px;background:#181d1b;box-shadow:0 13px 35px #0003}
+.data-table th{background:#292d28;font-size:10px;letter-spacing:.16em;color:#dfd1b5;padding:17px 19px}
+.data-table td{border-top-color:#434940;padding:18px 19px;font-size:12px}
+.data-table td strong{font-size:13px;font-weight:780;line-height:1.4}
+.data-table td small{line-height:1.7;color:#abb0a7}
+.data-table tr:hover td{background:#252b28}
+.tag{border-radius:2px;font-size:10px;padding:4px 9px;letter-spacing:.025em;font-weight:800}
+.tag.paid,.tag.done,.tag.ok{border-color:#507e5e;background:#1c3024;color:#c6dfc4}
+.tag.progress,.tag.fleet{border-color:#af8b54;background:#31291e;color:#edd0a1}
+.tag.attention,.tag.awaiting{border-color:#a57162;background:#3d2823;color:#f3bca7}
+.row-actions button{border-radius:2px;font-weight:790;font-size:10px;letter-spacing:.04em;padding:8px 10px;color:#e1c18a;border-color:#635b4b}
+.row-actions button:hover{background:#302b21;color:#ffdfad}
+.toolbar{margin-bottom:23px}
+.toolbar input,.toolbar select{background:#1b211e;border-color:#69604f;border-radius:3px;min-height:45px;padding:12px 15px;max-width:420px;color:#f4f1e7}
+.toolbar input:focus{outline:2px solid #bfa06b;outline-offset:2px}
+.board-note{background:linear-gradient(110deg,#322c21,#21231f);border-left:2px solid #dfb878;color:#e0d0b5;line-height:1.7;padding:19px 21px;margin-bottom:25px}
+.list-simple li{padding:16px 0;border-bottom-color:#404840;font-size:12px}
+.list-simple strong{letter-spacing:-.015em}
+.list-simple small{color:#aeb3aa}
+.quick-grid{gap:13px}
+.quick-card{background:linear-gradient(130deg,#302b22,#1f231f);border:1px solid #615740;border-radius:2px;min-height:107px;padding:19px;text-align:left;font-size:12px;letter-spacing:.04em;transition:transform .18s,border-color .18s,background .18s}
+.quick-card:hover{transform:translateY(-2px);border-color:#c4a371;background:#393324}
+.quick-card span{font-family:Georgia,serif;font-weight:400;color:#e0bf8a;font-size:28px;margin-bottom:6px}
+.report-chart{border-bottom-color:#77674b}
+.bar{background:linear-gradient(0deg,#977445,#efcf94);max-width:72px;border-radius:2px 2px 0 0}
+.setting-line{border-bottom-color:#4a4d44}
+.setting-line b{color:#ebcc97}
+.app-footer{border-top-color:#4a4335;background:#101312;padding:24px 48px;color:#93978d;font-size:10px;letter-spacing:.03em}
+#menu-toggle{background:#272b28;border-color:#776446;color:#e7d0a3;border-radius:2px}
+dialog{background:#1b211e;border:1px solid #a68a5f;border-radius:3px;box-shadow:0 40px 130px #000d;width:min(690px,calc(100% - 26px))}
+dialog::backdrop{background:#000d;backdrop-filter:blur(7px)}
+.dialog-top{background:linear-gradient(90deg,#383025,#252822);border-color:#7f6c4e;padding:23px 29px}
+.dialog-top h2{font-size:24px;font-weight:770;letter-spacing:-.04em}
+.dialog-close{color:#e2ca9f;border-color:#8d7959;border-radius:2px;padding:6px 12px}
+.dialog-body{padding:31px}
+.field{font-size:10px;letter-spacing:.14em;color:#dcd5c5;gap:8px}
+.field input,.field select,.field textarea{background:#0f1412;border-color:#6c6b5b;border-radius:2px;color:#f7f3ea;font-size:14px;padding:13px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#dbb879;outline:2px solid #b7985e6e}
+.dialog-actions{margin-top:31px}
+.checks{gap:16px}
+.check-row{font-size:11px;letter-spacing:.03em}
+.check-row select{background:#121715;border-color:#6b6a59;border-radius:2px;min-height:41px}
+.callout{background:#2d2b24;border-color:#7d6c4e;color:#e0d1b5;border-radius:2px;line-height:1.7}
+#toast{background:#24352d;border-color:#769580;border-radius:2px;color:#f0f1e8;box-shadow:0 15px 44px #000b}
+@media(max-width:1200px){.view{padding:35px 30px 50px}.app-topbar{padding:0 28px}.metric{padding:22px 19px;min-height:146px}.metric:before{left:19px}.metric .m-value{font-size:32px}}
+@media(max-width:900px){.sidebar{padding:29px 13px}.app-brand strong{font-size:16px}.side-nav button{padding:11px}.metrics{gap:12px}}
+@media(max-width:780px){.sidebar{width:min(292px,85vw)}.app-topbar{height:76px;padding:0 16px}.view{padding:25px 18px 45px}.view h1{font-size:clamp(31px,8vw,43px)}.view-intro{margin-bottom:24px}.crumb strong{font-size:15px}.metrics{gap:10px}.metric{min-height:124px;padding:18px}.metric:before{left:18px}.metric .m-value{margin-top:19px;font-size:29px}.metric .m-foot{font-size:10px}.panel{padding:19px}.app-footer{padding:20px}.banner{padding:15px 18px}}
+@media(max-width:450px){.top-actions .gold-btn{padding:10px;font-size:10px;letter-spacing:0}.metric{min-height:115px;padding:14px}.metric:before{left:14px}.metric .m-value{font-size:26px}.metric .m-label{font-size:9px;letter-spacing:.1em}.metric .m-foot{font-size:9px}.view h1{font-size:31px}.dialog-top{padding:19px}.dialog-body{padding:18px}.table-wrap{margin-right:0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:.01ms!important;scroll-behavior:auto!important}}
