@@ -154,7 +154,35 @@ function inspectionForm(id){if(!state.vehicles.length){notify('Add a vehicle fir
 function formSave(form){var f=new FormData(form),id=form.getAttribute('data-id')||uid(),kind=form.id;
 if(kind==='form-customer'){var c={id:id,name:String(f.get('name')||'').trim(),company:String(f.get('company')||'').trim(),phone:String(f.get('phone')||'').trim(),email:String(f.get('email')||'').trim(),type:String(f.get('type')||'Retail'),notes:String(f.get('notes')||'').trim()};if(!c.name)return notify('Customer name is required.');upsert(state.customers,c)}
 if(kind==='form-vehicle'){var v={id:id,customerId:String(f.get('customerId')),year:String(f.get('year')||'').trim(),make:String(f.get('make')||'').trim(),model:String(f.get('model')||'').trim(),plate:String(f.get('plate')||'').trim(),vin:String(f.get('vin')||'').toUpperCase().replace(/\s/g,''),mileage:fixed(f.get('mileage')),nextDue:String(f.get('nextDue')||'')};if(!v.year||!v.make||!v.model)return notify('Vehicle year, make and model are required.');upsert(state.vehicles,v)}
-if(kind==='form-job'){var j={id:id,vehicleId:String(f.get('vehicleId')),title:String(f.get('title')||'').trim(),status:String(f.get('status')||'Estimate'),date:String(f.get('date')||today()),laborHours:fixed(f.get('laborHours')),rate:fixed(f.get('rate')),parts:fixed(f.get('parts')),description:String(f.get('description')||'').trim(),partsDetails:String(f.get('partsDetails')||'').trim(),recommendations:String(f.get('recommendations')||'').trim(),warranty:String(f.get('warranty')||'').trim()};if(!j.title)return notify('Enter a job title.');upsert(state.jobs,j)}
+if(kind==='form-job'){
+  var lines,totals;
+  try{
+    lines=formLines(f);
+    totals=window.BakersEstimateEngine.calculate({lineItems:lines,discount:Number(f.get("discount")||0)},state.prefs.taxRate);
+  }catch(e){notify("Check estimate: "+String(e.message||e));return}
+  var existing=state.jobs.find(function(x){return x.id===id});
+  var statusValue=String(f.get("status")||"Estimate");
+  var titleValue=String(f.get("title")||"").trim(),dateValue=String(f.get("date")||today());
+  if(!titleValue)return notify("Enter a service title.");
+  if(!getVehicle(String(f.get("vehicleId"))))return notify("Choose a valid customer vehicle.");
+  if(!["Estimate","Awaiting Approval","In Progress","Completed","Paid","Cancelled"].includes(statusValue))return notify("Choose a valid workflow status.");
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(dateValue))return notify("Use a valid service date.");
+  var laborLines=lines.filter(function(x){return x.type==="labor"});
+  var j={
+    id:id,vehicleId:String(f.get("vehicleId")),title:titleValue,status:statusValue,date:dateValue,
+    lineItems:lines,discount:fixed(f.get("discount")||0),
+    laborHours:fixed(laborLines.reduce(function(a,x){return a+x.qty},0)),
+    rate:laborLines.length?fixed(laborLines[0].unitPrice):0,
+    parts:totals.parts,
+    description:String(f.get("description")||"").trim(),
+    partsDetails:String(f.get("partsDetails")||"").trim(),
+    recommendations:String(f.get("recommendations")||"").trim(),
+    warranty:String(f.get("warranty")||"").trim(),
+    updatedAt:new Date().toISOString(),
+    createdAt:existing&&existing.createdAt||new Date().toISOString()
+  };
+  upsert(state.jobs,j)
+}
 if(kind==='form-inspection'){var checks={};checkNames.forEach(function(c,i){checks[c]=String(f.get('check'+i)||'Not checked')});var a={id:id,vehicleId:String(f.get('vehicleId')),date:String(f.get('date')||today()),mileage:fixed(f.get('mileage')),notes:String(f.get('notes')||'').trim(),checks:checks};upsert(state.inspections,a)}
 persist();closeDialog();render();notify('Record saved on this device.')}
 function upsert(arr,record){var i=arr.findIndex(function(x){return x.id===record.id});if(i>=0)arr[i]=record;else arr.push(record)}
@@ -175,9 +203,17 @@ function importData(file){if(!file)return;if(file.size>5000000)return notify('Ba
 function demo(){if(!confirm('Add fictional examples to this workspace? These are not actual customers.'))return;var c1={id:uid(),name:'Morgan Example',company:'Example Property Services (DEMO)',phone:'',email:'',type:'Fleet',notes:'Fictional sample only'},c2={id:uid(),name:'Taylor Sample',company:'',phone:'',email:'',type:'Retail',notes:'Fictional sample only'};state.customers.push(c1,c2);var v1={id:uid(),customerId:c1.id,year:'2018',make:'Ford',model:'Transit',plate:'DEMO-01',vin:'',mileage:100750,nextDue:today()},v2={id:uid(),customerId:c1.id,year:'2017',make:'Chevrolet',model:'Silverado',plate:'DEMO-02',vin:'',mileage:123450,nextDue:''},v3={id:uid(),customerId:c2.id,year:'2016',make:'Toyota',model:'Camry',plate:'DEMO-03',vin:'',mileage:94000,nextDue:''};state.vehicles.push(v1,v2,v3);state.jobs.push({id:uid(),vehicleId:v1.id,title:'Brake system inspection and service (DEMO)',status:'Awaiting Approval',date:today(),laborHours:2,rate:150,parts:195,description:'Fictional sample estimate — not a real repair.'},{id:uid(),vehicleId:v3.id,title:'Battery replacement (DEMO)',status:'Paid',date:today(),laborHours:.7,rate:150,parts:175,description:'Fictional sample entry. Not a real payment.'});var checks={};checkNames.forEach(function(k){checks[k]='OK'});checks['Brakes']='Attention';state.inspections.push({id:uid(),vehicleId:v1.id,date:today(),mileage:100750,notes:'DEMO ONLY — front brake pads approaching service range.',checks:checks});persist();go('dashboard');notify('Fictional demo records added.')}
 function reset(){if(!confirm('Permanently erase all records and settings from this browser? Export a backup first.'))return;if(!confirm('Confirm permanent local deletion. There is no undo.'))return;state=fresh();persist();go('dashboard');notify('Local workspace cleared.')}
 function quickAdd(){openDialog('Create new record','<p class="lede">Choose the type of shop record to create.</p><div class="quick-grid" style="margin-top:18px"><button class="quick-card" data-action="customer-new"><span>♧</span>Customer</button><button class="quick-card" data-action="vehicle-new"><span>▤</span>Vehicle</button><button class="quick-card" data-action="job-new"><span>▥</span>Work order</button><button class="quick-card" data-action="inspection-new"><span>☑</span>Inspection</button></div>')}
-document.addEventListener('click',function(e){var nav=e.target.closest('[data-page]');if(nav){go(nav.getAttribute('data-page'));return}var a=e.target.closest('[data-action]');if(!a)return;var action=a.getAttribute('data-action'),id=a.getAttribute('data-id');if(action==='close-dialog')return closeDialog();if(action==='quick-add')return quickAdd();if(action==='customer-new')return customerForm();if(action==='customer-edit')return customerForm(id);if(action==='vehicle-new')return vehicleForm();if(action==='vehicle-edit')return vehicleForm(id);if(action==='job-new')return jobForm();if(action==='job-edit')return jobForm(id);if(action==='inspection-new')return inspectionForm();if(action==='inspection-edit')return inspectionForm(id);if(action==='job-print')return jobPrint(id);if(action==='inspection-print')return inspectionPrint(id);if(action==='job-share')return jobShare(id);if(action==='export')return exportData();if(action==='import')return byId('import-input').click();if(action==='demo')return demo();if(action==='reset')return reset();var parts=action.split('-');if(parts[1]==='delete')return erase(parts[0],id)});
+document.addEventListener('click',function(e){var nav=e.target.closest('[data-page]');if(nav){go(nav.getAttribute('data-page'));return}var a=e.target.closest('[data-action]');if(!a)return;var action=a.getAttribute('data-action'),id=a.getAttribute('data-id');if(action==='close-dialog')return closeDialog();if(action==='quick-add')return quickAdd();if(action==='line-add')return appendEstimateRow();
+if(action==='line-remove'){
+var row=a.closest('[data-estimate-line]');
+var container=byId('estimate-lines');
+if(!container||!row)return;
+if(container.querySelectorAll('[data-estimate-line]').length<=1)return notify('Keep at least one estimate line.');
+row.remove();refreshEstimatePreview();return;
+}if(action==='customer-new')return customerForm();if(action==='customer-edit')return customerForm(id);if(action==='vehicle-new')return vehicleForm();if(action==='vehicle-edit')return vehicleForm(id);if(action==='job-new')return jobForm();if(action==='job-edit')return jobForm(id);if(action==='inspection-new')return inspectionForm();if(action==='inspection-edit')return inspectionForm(id);if(action==='job-print')return jobPrint(id);if(action==='inspection-print')return inspectionPrint(id);if(action==='job-share')return jobShare(id);if(action==='export')return exportData();if(action==='import')return byId('import-input').click();if(action==='demo')return demo();if(action==='reset')return reset();var parts=action.split('-');if(parts[1]==='delete')return erase(parts[0],id)});
 document.addEventListener('submit',function(e){var form=e.target;if(form.id==='form-settings'){e.preventDefault();var f=new FormData(form);['laborRate','foreignLaborRate','taxRate','fleetRate'].forEach(function(k){state.prefs[k]=fixed(f.get(k))});persist();render();notify('Shop rates saved.');return}if(/^form-(customer|vehicle|job|inspection)$/.test(form.id)){e.preventDefault();if(form.reportValidity())formSave(form)}});
-document.addEventListener('input',function(e){if(!e.target.matches('[data-search]'))return;query=e.target.value;var cursor=e.target.selectionStart;render();var input=document.querySelector('[data-search]');if(input){input.focus();try{input.setSelectionRange(cursor,cursor)}catch(err){}}});
+document.addEventListener('input',function(e){if(e.target.closest('#form-job')){refreshEstimatePreview();return}if(!e.target.matches('[data-search]'))return;query=e.target.value;var cursor=e.target.selectionStart;render();var input=document.querySelector('[data-search]');if(input){input.focus();try{input.setSelectionRange(cursor,cursor)}catch(err){}}});
+document.addEventListener('change',function(e){if(e.target.closest('#form-job'))refreshEstimatePreview()});
 byId('import-input').addEventListener('change',function(e){importData(e.target.files[0])});
 byId('menu-toggle').addEventListener('click',function(){var o=byId('sidebar').classList.toggle('open');document.querySelector('.mobile-shade').classList.toggle('show',o);this.setAttribute('aria-expanded',String(o))});
 document.querySelector('.mobile-shade').addEventListener('click',closeMobile);
