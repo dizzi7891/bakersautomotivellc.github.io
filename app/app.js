@@ -143,17 +143,18 @@ function lineEditorRow(l,i){
    '<label class="field item-description">Description<input name="itemDescription" value="'+esc(l.description||"")+'" required maxlength="300" placeholder="Brake pads, diagnosis, labor operation..."></label>'+
    '<label class="field">Qty / hours<input name="itemQty" type="number" min=".01" max="10000" step=".01" required value="'+esc(l.qty===undefined?1:l.qty)+'"></label>'+
    '<label class="field">Unit price / hourly rate $<input name="itemUnit" type="number" min="0" max="1000000" step=".01" required value="'+esc(l.unitPrice===undefined?0:l.unitPrice)+'"></label>'+
-   '<label class="field">Parts tax treatment<select name="itemTax">'+opts([["tax","Taxable part"],["exempt","Not taxable"]],(l.taxable===undefined?part:l.taxable)?"tax":"exempt")+'</select></label>'+
+   '<label class="field">Parts tax treatment<select name="itemTax">'+opts([["tax","Taxable part"],["exempt","Not taxable"]],(l.taxable===undefined?part:l.taxable)?"tax":"exempt")+'</select></label>'+ 
+   '<label class="field span">Replacement part condition<select name="itemCondition">'+opts([["","Not specified"],["New OEM","New OEM"],["New aftermarket","New aftermarket"],["OEM surplus","OEM surplus"],["Used","Used"],["Rebuilt","Rebuilt"],["Reconditioned","Reconditioned"]],l.condition||"")+'</select></label>'+
    '</div></div>';
 }
 function formLines(f){
-  var types=f.getAll("itemType"),desc=f.getAll("itemDescription"),qtys=f.getAll("itemQty"),units=f.getAll("itemUnit"),taxes=f.getAll("itemTax"),items=[];
+  var types=f.getAll("itemType"),desc=f.getAll("itemDescription"),qtys=f.getAll("itemQty"),units=f.getAll("itemUnit"),taxes=f.getAll("itemTax"),conditions=f.getAll("itemCondition"),items=[];
   if(types.length===0)throw new Error("Add at least one service or part line");
   if(types.length>window.BakersEstimateEngine.maxRows)throw new Error("Too many line items");
   types.forEach(function(type,i){
     var rawQty=String(qtys[i]===undefined?"":qtys[i]).trim(),rawUnit=String(units[i]===undefined?"":units[i]).trim();
     if(!rawQty||!rawUnit||!String(desc[i]||"").trim())throw new Error("Each line needs a description, quantity and unit price");
-    items.push({id:"item-"+i,type:String(type),description:String(desc[i]).trim(),qty:Number(rawQty),unitPrice:Number(rawUnit),taxable:taxes[i]==="tax"});
+    items.push({id:"item-"+i,type:String(type),description:String(desc[i]).trim(),qty:Number(rawQty),unitPrice:Number(rawUnit),taxable:taxes[i]==="tax",condition:String(conditions[i]||"")});
   });
   return items;
 }
@@ -193,7 +194,19 @@ function jobForm(id){
     '<label class="field span">Parts reference / supplier notes<textarea name="partsDetails" maxlength="5000" placeholder="Optional: OEM numbers, sources and service notes">'+esc(j.partsDetails||"")+'</textarea></label>'+
     '<label class="field span">Further recommendations<textarea name="recommendations" maxlength="3000">'+esc(j.recommendations||"")+'</textarea></label>'+
     '<label class="field span">Warranty / work-specific exclusions<textarea name="warranty" maxlength="2500" placeholder="Enter warranty terms agreed for this repair">'+esc(j.warranty||"")+'</textarea></label>'+
-    '<div class="field span"><div class="callout">Shop draft only: the selected status is a manual note, not recorded customer authorization or verified payment. Michigan parts tax applies to taxable part lines only; no labor tax. Final disclosures must be reviewed.</div></div>'+actions()+'</form>';
+    '<div class="field span pro-lines-heading"><strong>Michigan repair record</strong><span>Manual documentation — not a digital signature service</span></div>'+
+    '<label class="field">Estimate provided date/time<input name="estimateProvidedAt" type="datetime-local" value="'+esc(j.estimateProvidedAt||"")+'"></label>'+
+    '<label class="field">Estimate delivery<select name="estimateDelivery">'+opts([["","Not recorded"],["Paper","Paper"],["Electronic","Electronic with consent"],["Waiver","Valid written waiver (retain separately)"]],j.estimateDelivery||"")+'</select></label>'+
+    '<label class="field">Approving customer full name<input name="approvalBy" maxlength="150" value="'+esc(j.approvalBy||"")+'"></label>'+
+    '<label class="field">Authorization method<select name="approvalMethod">'+opts([["","Not documented"],["Written","Written"],["Phone","Phone / verbal"],["Text","Text message"],["Electronic","Other electronic"],["Waiver","Signed waiver"]],j.approvalMethod||"")+'</select></label>'+
+    '<label class="field">Approval received date/time<input name="approvalAt" type="datetime-local" value="'+esc(j.approvalAt||"")+'"></label>'+
+    '<label class="field">Original approved amount $<input name="approvedAmount" type="number" min="0" max="1000000" step=".01" value="'+esc(j.approvedAmount===undefined?"":j.approvedAmount)+'"></label>'+
+    '<label class="field span pro-check-field"><input name="electronicConsent" type="checkbox" '+(j.electronicConsent?"checked":"")+'><span>Customer agreed to receive estimates electronically (retain evidence)</span></label>'+
+    '<label class="field">Supplemental approval date/time<input name="supplementApprovalAt" type="datetime-local" value="'+esc(j.supplementApprovalAt||"")+'"></label>'+
+    '<label class="field">Replaced parts return choice<select name="partsReturn">'+opts([["","Not recorded"],["Requested","Return requested (subject to exceptions)"],["Declined","Customer declined return"],["Not applicable","Not applicable"]],j.partsReturn||"")+'</select></label>'+
+    '<label class="field span">Actual work performed / exceptions<textarea name="repairsPerformed" maxlength="5000">'+esc(j.repairsPerformed||"")+'</textarea></label>'+
+    '<label class="field span">Facility owner / designee completing final repair certification<input name="completionSigner" maxlength="150" value="'+esc(j.completionSigner||"")+'" placeholder="A typed name is not an electronic signature"></label>'+
+    '<div class="field span"><div class="callout">Michigan documentation guide: this form records staff-entered details only. Save original estimates, customer approvals, revisions and signed final paperwork separately in a secure record system.</div></div>'+actions()+'</form>';
   openDialog(id?"Edit work order":"New work order",content);refreshEstimatePreview();
 }
 function inspectionForm(id){if(!state.vehicles.length){notify('Add a vehicle first.');vehicleForm();return}var a=state.inspections.find(function(x){return x.id===id})||{vehicleId:state.vehicles[0].id,date:today(),mileage:'',notes:'',checks:{}};openDialog(id?'Edit inspection':'New inspection','<form id="form-inspection" data-id="'+esc(id||'')+'" class="form-grid">'+
@@ -229,6 +242,17 @@ if(kind==='form-job'){
     partsDetails:String(f.get("partsDetails")||"").trim(),
     recommendations:String(f.get("recommendations")||"").trim(),
     warranty:String(f.get("warranty")||"").trim(),
+    estimateProvidedAt:String(f.get("estimateProvidedAt")||""),
+    estimateDelivery:String(f.get("estimateDelivery")||""),
+    approvalBy:String(f.get("approvalBy")||"").trim(),
+    approvalMethod:String(f.get("approvalMethod")||""),
+    approvalAt:String(f.get("approvalAt")||""),
+    approvedAmount:String(f.get("approvedAmount")||"").trim()?fixed(f.get("approvedAmount")):null,
+    electronicConsent:String(f.get("electronicConsent")||"")==="on",
+    supplementApprovalAt:String(f.get("supplementApprovalAt")||""),
+    partsReturn:String(f.get("partsReturn")||""),
+    repairsPerformed:String(f.get("repairsPerformed")||"").trim(),
+    completionSigner:String(f.get("completionSigner")||"").trim(),
     updatedAt:new Date().toISOString(),
     createdAt:existing&&existing.createdAt||new Date().toISOString()
   };
