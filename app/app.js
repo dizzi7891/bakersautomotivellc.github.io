@@ -260,7 +260,50 @@ function exportCsv(){
 }
 
 function exportData(){var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Bakers-GarageOS-Backup-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1500);notify('Backup downloaded. Store it somewhere safe.')}
-function importData(file){if(!file)return;if(file.size>5000000)return notify('Backup file is too large.');var r=new FileReader();r.onload=function(){try{var a=JSON.parse(String(r.result));if(!a||a.version!==1||!['customers','vehicles','jobs','inspections'].every(function(k){return Array.isArray(a[k])&&a[k].length<100000}))throw Error('Not a supported backup');if(!confirm('Restore this backup? This replaces all records currently stored in this browser.'))return;state={version:1,customers:a.customers,vehicles:a.vehicles,jobs:a.jobs,inspections:a.inspections,prefs:Object.assign(fresh().prefs,a.prefs||{})};persist();go('dashboard');notify('Backup restored on this device.')}catch(e){notify('Unable to read this backup. No changes made.')}finally{byId('import-input').value=''}};r.readAsText(file)}
+function validateBackup(a){
+ if(!a||a.version!==1||!["customers","vehicles","jobs","inspections"].every(function(k){return Array.isArray(a[k])&&a[k].length<=20000}))throw new Error("Unsupported or oversized backup");
+ var customerIds=new Set(),vehicleIds=new Set(),jobIds=new Set(),inspectionIds=new Set();
+ a.customers.forEach(function(c){
+   if(!c||typeof c.id!=="string"||!c.id||!String(c.name||"").trim()||customerIds.has(c.id))throw new Error("Invalid customer record");
+   customerIds.add(c.id);
+ });
+ a.vehicles.forEach(function(v){
+   if(!v||!v.id||vehicleIds.has(v.id)||!customerIds.has(v.customerId)||!String(v.make||"").trim()||!String(v.model||"").trim())throw new Error("Vehicle record has invalid owner or details");
+   vehicleIds.add(v.id);
+ });
+ a.jobs.forEach(function(j){
+   if(!j||!j.id||jobIds.has(j.id)||!vehicleIds.has(j.vehicleId)||!String(j.title||"").trim())throw new Error("Work order has invalid vehicle or description");
+   if(!["Estimate","Awaiting Approval","In Progress","Completed","Paid","Cancelled"].includes(String(j.status||"")))throw new Error("Work order has invalid status");
+   window.BakersEstimateEngine.calculate(j,n(a.prefs&&a.prefs.taxRate!==undefined?a.prefs.taxRate:6));
+   jobIds.add(j.id);
+ });
+ a.inspections.forEach(function(i){
+   if(!i||!i.id||inspectionIds.has(i.id)||!vehicleIds.has(i.vehicleId))throw new Error("Inspection references missing vehicle");
+   inspectionIds.add(i.id);
+ });
+}
+function importData(file){
+ if(!file)return;
+ if(file.size>5000000)return notify("Backup is larger than the supported 5 MB limit");
+ var r=new FileReader();
+ r.onload=function(){
+   try{
+     var a=JSON.parse(String(r.result));
+     validateBackup(a);
+     if(!confirm("This will replace ALL local customers, vehicles, work orders and inspections. Have you downloaded a backup of the current data?"))return;
+     var p=fresh().prefs;
+     ["laborRate","foreignLaborRate","taxRate","fleetRate"].forEach(function(k){if(a.prefs&&Number.isFinite(Number(a.prefs[k]))&&Number(a.prefs[k])>=0)p[k]=fixed(a.prefs[k])});
+     if(p.taxRate>30)throw new Error("Tax setting exceeds supported limit");
+     var snapshot=state;
+     state={version:1,customers:a.customers,vehicles:a.vehicles,jobs:a.jobs,inspections:a.inspections,prefs:p};
+     if(!persist()){state=snapshot;return}
+     go("dashboard");notify("Backup restored. Review the work orders before continuing.");
+   }catch(e){notify("Backup not restored: "+String(e.message||"Invalid file").slice(0,160))}
+   finally{byId("import-input").value=""}
+ };
+ r.onerror=function(){notify("Unable to read selected backup file")};
+ r.readAsText(file)
+}
 function demo(){if(!confirm('Add fictional examples to this workspace? These are not actual customers.'))return;var c1={id:uid(),name:'Morgan Example',company:'Example Property Services (DEMO)',phone:'',email:'',type:'Fleet',notes:'Fictional sample only'},c2={id:uid(),name:'Taylor Sample',company:'',phone:'',email:'',type:'Retail',notes:'Fictional sample only'};state.customers.push(c1,c2);var v1={id:uid(),customerId:c1.id,year:'2018',make:'Ford',model:'Transit',plate:'DEMO-01',vin:'',mileage:100750,nextDue:today()},v2={id:uid(),customerId:c1.id,year:'2017',make:'Chevrolet',model:'Silverado',plate:'DEMO-02',vin:'',mileage:123450,nextDue:''},v3={id:uid(),customerId:c2.id,year:'2016',make:'Toyota',model:'Camry',plate:'DEMO-03',vin:'',mileage:94000,nextDue:''};state.vehicles.push(v1,v2,v3);state.jobs.push({id:uid(),vehicleId:v1.id,title:'Brake system inspection and service (DEMO)',status:'Awaiting Approval',date:today(),laborHours:2,rate:150,parts:195,description:'Fictional sample estimate — not a real repair.'},{id:uid(),vehicleId:v3.id,title:'Battery replacement (DEMO)',status:'Paid',date:today(),laborHours:.7,rate:150,parts:175,description:'Fictional sample entry. Not a real payment.'});var checks={};checkNames.forEach(function(k){checks[k]='OK'});checks['Brakes']='Attention';state.inspections.push({id:uid(),vehicleId:v1.id,date:today(),mileage:100750,notes:'DEMO ONLY — front brake pads approaching service range.',checks:checks});persist();go('dashboard');notify('Fictional demo records added.')}
 function reset(){if(!confirm('Permanently erase all records and settings from this browser? Export a backup first.'))return;if(!confirm('Confirm permanent local deletion. There is no undo.'))return;state=fresh();persist();go('dashboard');notify('Local workspace cleared.')}
 function quickAdd(){openDialog('Create new record','<p class="lede">Choose the type of shop record to create.</p><div class="quick-grid" style="margin-top:18px"><button class="quick-card" data-action="customer-new"><span>♧</span>Customer</button><button class="quick-card" data-action="vehicle-new"><span>▤</span>Vehicle</button><button class="quick-card" data-action="job-new"><span>▥</span>Work order</button><button class="quick-card" data-action="inspection-new"><span>☑</span>Inspection</button></div>')}
