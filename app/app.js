@@ -294,32 +294,54 @@ function upsert(arr,record){var i=arr.findIndex(function(x){return x.id===record
 function erase(type,id){var map={customer:'customers',vehicle:'vehicles',job:'jobs',inspection:'inspections'},key=map[type];if(!key)return;if(type==='customer'&&state.vehicles.some(function(v){return v.customerId===id}))return notify('Delete or reassign this customer’s vehicles first.');if(type==='vehicle'&&(state.jobs.some(function(j){return j.vehicleId===id})||state.inspections.some(function(i){return i.vehicleId===id})))return notify('Delete related work orders and inspections first.');if(!confirm('Delete this '+type+' permanently from this browser?'))return;state[key]=state[key].filter(function(x){return x.id!==id});persist();render();notify('Record deleted.')}
 function paper(body,title){var win=window.open('','_blank');if(!win)return notify('Pop-up blocked. Allow pop-ups to print.');win.document.write('<!doctype html><html lang="en"><head><title>'+esc(title)+'</title><meta charset="utf-8"><style>@page{size:letter;margin:16mm 17mm}*{box-sizing:border-box}body{font:12px/1.75 Arial,Helvetica,sans-serif;color:#202523;margin:28px 34px;background:#fff}header{border-top:7px solid #b99965;border-bottom:1px solid #b2a081;padding:22px 0 25px;display:flex;justify-content:space-between;align-items:flex-start;gap:26px}header>div:last-child{text-align:right;font-size:12px;color:#54452c;white-space:nowrap}header>div:last-child b{display:block;letter-spacing:1.3px;font-size:11px;color:#9d7b44}h1{font:700 23px/1.13 Georgia,serif;letter-spacing:-.45px;color:#131918;max-width:360px;margin:0 0 9px}h2{font:bold 12px/1.4 Arial,sans-serif;text-transform:uppercase;letter-spacing:1.4px;color:#795c2e;margin:29px 0 13px;padding-bottom:7px;border-bottom:1px solid #d7d1c5}small{color:#666}p{margin:12px 0;white-space:normal;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;margin-top:15px;table-layout:auto}th{background:#f1ece1;color:#463920;letter-spacing:.8px;text-transform:uppercase;font-size:10px}td,th{border-bottom:1px solid #d8d6cf;padding:12px 11px;text-align:left;vertical-align:top}td{overflow-wrap:anywhere}table.totals{max-width:360px;margin:26px 0 0 auto}table.totals th{font-size:14px;background:#e8d9ba;color:#1f1e1a;padding:15px}.totals td:last-child{text-align:right}.note{margin-top:34px;color:#555b55;font-size:10px;line-height:1.65;border-top:1px solid #c7c0af;padding-top:14px}.sig{padding-top:33px;font-size:12px}.sig span{display:inline-block;border-bottom:1px solid #6c6c6c;min-width:220px}tr,h2,.sig{break-inside:avoid}header,table{break-inside:auto}@media print{body{margin:0}button{display:none}}</style></head><body>'+body+'<script>window.addEventListener("load",function(){setTimeout(function(){window.print()},200)})<\/script></body></html>');win.document.close()}
 function jobPrint(id){
-  var j=state.jobs.find(function(x){return x.id===id});if(!j)return;
-  var v=getVehicle(j.vehicleId),c=getCustomer(v&&v.customerId),t=totalFor(j);
-  if(t.error){notify("Cannot print this estimate: "+t.error);return}
-  var items=t.lines.map(function(l){
-    var kind=l.type==="labor"?"Labor":l.type==="part"?"Part":"Other";
-    return '<tr><td><b>'+esc(l.description)+'</b><br><small>'+kind+(l.type==="part"?(l.taxable?" · Taxable":" · Exempt"):"")+'</small></td><td>'+esc(l.qty)+'</td><td>'+cash(l.unitPrice)+'</td><td style="text-align:right">'+cash(l.amount)+'</td></tr>'
-  }).join("");
-  var heading=j.status==="Paid"?"WORK ORDER / MARKED PAID":j.status==="Completed"?"COMPLETED WORK ORDER":"REPAIR ESTIMATE / WORK ORDER";
-  var subtotalRows=
-      '<tr><td>Labor subtotal</td><td>'+cash(t.labor)+'</td></tr>'+
-      '<tr><td>Parts subtotal</td><td>'+cash(t.parts)+'</td></tr>'+
-      (t.fees?'<tr><td>Other charges</td><td>'+cash(t.fees)+'</td></tr>':"")+
-      (t.discount?'<tr><td>Discount</td><td>−'+cash(t.discount)+'</td></tr>':"")+
-      '<tr><td>MI parts sales tax ('+esc(state.prefs.taxRate)+'% on taxable parts)</td><td>'+cash(t.tax)+'</td></tr>';
-  paper('<header><div><h1>BAKER’S AUTOMOTIVE REPAIR LLC</h1><div>33860 Groesbeck Hwy · Clinton Township, MI 48035</div><div>586-843-4157 · bakersauto2020@gmail.com</div></div><div><b>'+heading+'</b><div># '+esc(j.id.slice(0,11).toUpperCase())+'</div><small>Date: '+esc(j.date)+'</small></div></header>'+
-    '<h2>Customer and vehicle details</h2><table><tr><td><b>Customer</b><br>'+esc(c&&c.name||"—")+'<br>'+esc(c&&c.company||"")+'<br>Phone: '+esc(c&&c.phone||"—")+'</td><td><b>Vehicle</b><br>'+esc(vehicleName(v))+'<br>VIN: '+esc(v&&v.vin||"Not recorded")+'<br>Mileage: '+esc(v&&v.mileage||"—")+'</td></tr></table>'+
-    '<h2>'+esc(j.title)+'</h2>'+
-    (j.description?'<p><b>Findings:</b><br>'+esc(j.description).replace(/\n/g,"<br>")+'</p>':"")+
-    '<table><thead><tr><th>Item / service</th><th>Qty / hours</th><th>Unit rate</th><th style="text-align:right">Amount</th></tr></thead><tbody>'+items+'</tbody></table>'+
-    '<table class="totals">'+subtotalRows+'<tr><th>ESTIMATED TOTAL</th><th>'+cash(t.total)+'</th></tr></table>'+
-    (j.partsDetails?'<h2>Parts information</h2><p>'+esc(j.partsDetails).replace(/\n/g,"<br>")+'</p>':"")+
-    (j.recommendations?'<h2>Recommendations</h2><p>'+esc(j.recommendations).replace(/\n/g,"<br>")+'</p>':"")+
-    '<h2>Service details and warranty</h2><p><b>Technician:</b> Michael Baker</p><p><b>Warranty:</b> '+esc(j.warranty||"Warranty terms must be confirmed with the shop before approval.").replace(/\n/g,"<br>")+'</p>'+
-    '<p class="note"><b>Shop status:</b> '+esc(j.status)+'. Draft document created from locally entered information. Neither work authorization nor payment has been independently verified by this system. Review Michigan-specific estimate, consent, tax, environmental fee, return-of-parts and warranty disclosures and obtain valid customer authorization before issuing as a final legal shop record. Listed prices can change upon approved revision.</p>'+
-    '<div class="sig">Customer approval / full legal name: <span></span> &nbsp; Date: <span style="min-width:100px"></span></div>',
-    'Baker’s Automotive · '+j.id.slice(0,8));
+ var j=state.jobs.find(function(x){return x.id===id});if(!j)return;
+ var v=getVehicle(j.vehicleId),c=getCustomer(v&&v.customerId),t=totalFor(j);
+ if(t.error){notify("Cannot print estimate: "+t.error);return}
+ var mi=window.BakersMICompliance.check(j,state.prefs,t.total);
+ var critical=mi.findings.filter(function(x){return x.level==="required"});
+ var items=t.lines.map(function(l){
+  var kind=l.type==="labor"?"Labor":l.type==="part"?"Part":"Other";
+  return '<tr><td><b>'+esc(l.description)+'</b><br><small>'+kind+(l.type==="part"?(l.taxable?" · Taxable":" · Exempt")+" · "+esc(l.condition||"PART CONDITION NOT RECORDED"):"")+'</small></td>'+
+   '<td>'+esc(l.qty)+'</td><td>'+cash(l.unitPrice)+'</td><td style="text-align:right">'+cash(l.amount)+'</td></tr>'
+ }).join("");
+ var heading=j.status==="Paid"?"WORK ORDER / MARKED PAID":j.status==="Completed"?"COMPLETED WORK ORDER":"REPAIR ESTIMATE / WORK ORDER";
+ var totals='<tr><td>Labor subtotal</td><td>'+cash(t.labor)+'</td></tr>'+
+  '<tr><td>Parts subtotal</td><td>'+cash(t.parts)+'</td></tr>'+
+  (t.fees?'<tr><td>Other charges</td><td>'+cash(t.fees)+'</td></tr>':"")+
+  (t.discount?'<tr><td>Discount</td><td>−'+cash(t.discount)+'</td></tr>':"")+
+  '<tr><td>MI parts sales tax ('+esc(state.prefs.taxRate)+'% taxable parts)</td><td>'+cash(t.tax)+'</td></tr>';
+ var documentHtml='<header><div><h1>BAKER’S AUTOMOTIVE REPAIR LLC</h1>'+
+   '<div>33860 Groesbeck Hwy · Clinton Township, MI 48035</div>'+
+   '<div>586-843-4157 · bakersauto2020@gmail.com</div>'+
+   '<div><b>Michigan repair facility registration:</b> '+esc(state.prefs.facilityRegistration||"NOT ENTERED")+'</div></div>'+
+   '<div><b>'+heading+'</b><div># '+esc(j.id.slice(0,11).toUpperCase())+'</div><small>Date: '+esc(j.date)+'</small></div></header>'+
+   '<h2>Customer and vehicle</h2><table><tr><td><b>Customer</b><br>'+esc(c&&c.name||"—")+'<br>'+esc(c&&c.company||"")+
+   '<br>Phone: '+esc(c&&c.phone||"—")+'</td><td><b>Vehicle</b><br>'+esc(vehicleName(v))+
+   '<br>VIN: '+esc(v&&v.vin||"Not recorded")+'<br>Mileage: '+esc(v&&v.mileage||"—")+'</td></tr></table>'+
+   '<h2>'+esc(j.title)+'</h2>'+
+   (j.description?'<p><b>Initial concerns / diagnostic findings:</b><br>'+esc(j.description).replace(/\n/g,"<br>")+'</p>':"")+
+   '<table><thead><tr><th>Item / service</th><th>Qty / hours</th><th>Unit rate</th><th style="text-align:right">Amount</th></tr></thead><tbody>'+items+'</tbody></table>'+
+   '<table class="totals">'+totals+'<tr><th>ESTIMATED TOTAL</th><th>'+cash(t.total)+'</th></tr></table>'+
+   (j.partsDetails?'<h2>Parts information</h2><p>'+esc(j.partsDetails).replace(/\n/g,"<br>")+'</p>':"")+
+   (j.recommendations?'<h2>Recommendations</h2><p>'+esc(j.recommendations).replace(/\n/g,"<br>")+'</p>':"")+
+   '<h2>Service details / work completion</h2>'+
+   '<p><b>Technician:</b> '+esc(state.prefs.technicianName||"Not entered")+
+   ' &nbsp; <b>Mechanic MI certificate:</b> '+esc(state.prefs.mechanicCertificate||"Not entered")+'</p>'+
+   (j.repairsPerformed?'<p><b>Actual work performed:</b><br>'+esc(j.repairsPerformed).replace(/\n/g,"<br>")+'</p>':"")+
+   '<p><b>Replaced parts return:</b> '+esc(j.partsReturn||"Not documented")+'</p>'+
+   '<p><b>Warranty:</b> '+esc(j.warranty||"Written warranty details and exclusions must be confirmed separately.").replace(/\n/g,"<br>")+'</p>'+
+   '<h2>Estimate / authorization log (manually entered)</h2>'+
+   '<p><b>Estimate provided:</b> '+esc(j.estimateDelivery||"Not recorded")+' · '+esc(j.estimateProvidedAt||"—")+'</p>'+
+   '<p><b>Authorizing customer:</b> '+esc(j.approvalBy||"Not recorded")+' · '+esc(j.approvalMethod||"No method entered")+' · '+esc(j.approvalAt||"—")+'</p>'+
+   '<p><b>Original approved amount:</b> '+(j.approvedAmount!=null?cash(j.approvedAmount):"Not recorded")+
+   ' · <b>Supplemental authorization time:</b> '+esc(j.supplementApprovalAt||"Not recorded")+'</p>'+
+   '<p><b>Completion certification person:</b> '+esc(j.completionSigner||"Not entered")+'</p>'+
+   '<div class="sig"><b>Facility owner or designated representative SIGNATURE:</b> <span></span> &nbsp; Date: <span style="min-width:90px"></span></div>'+
+   (critical.length?'<p class="note"><b>MICHIGAN DOCUMENT REVIEW — '+critical.length+' REQUIRED FIELD(S) MISSING:</b></p><ul>'+
+       critical.map(function(x){return '<li>'+esc(x.message)+'</li>'}).join("")+'</ul>':
+       '<p class="note">No required information-field omissions detected. This does not verify legal compliance, customer authorization, or signatures.</p>')+
+   '<p class="note"><b>Status:</b> '+esc(j.status)+'. Draft based on staff-entered local data; no verified customer approvals or payments. Keep source estimates, authorizations, invoices and parts receipts. Review Michigan law and obtain required signatures before use as a legally operative final invoice.</p>';
+ paper(documentHtml,'Baker’s Automotive '+j.id.slice(0,8));
 }
 function inspectionPrint(id){var i=state.inspections.find(function(x){return x.id===id});if(!i)return;var v=getVehicle(i.vehicleId),c=getCustomer(v&&v.customerId);paper('<header><div><h1>BAKER’S AUTOMOTIVE REPAIR LLC</h1>33860 Groesbeck Hwy · Clinton Township, MI 48035<br>586-843-4157</div><div><b>VISUAL VEHICLE INSPECTION</b><br>'+esc(i.date)+'</div></header><h2>Vehicle</h2><p>'+esc(vehicleName(v))+' | '+esc(nameCustomer(v&&v.customerId))+' | Mileage: '+esc(i.mileage)+'</p><table><tr><th>Inspection item</th><th>Observation</th></tr>'+checkNames.map(function(k){return '<tr><td>'+esc(k)+'</td><td>'+esc(i.checks&&i.checks[k]||'Not checked')+'</td></tr>'}).join('')+'</table><h2>Inspector notes</h2><p>'+esc(i.notes||'No notes recorded.')+'</p><p class="note">Visual inspection only. No disassembly, complete diagnostic testing or guarantee against future failure is implied. Follow-up diagnostics and repairs require separate authorization.</p>','Baker’s inspection '+i.id.slice(0,8))}
 function jobShare(id){var j=state.jobs.find(function(x){return x.id===id});if(!j)return;var v=getVehicle(j.vehicleId),c=getCustomer(v&&v.customerId);if(!c||!c.phone)return notify('Add a phone number to the customer record first.');var phone=c.phone.replace(/[^0-9+]/g,''),msg='Baker’s Automotive Repair LLC: Draft '+j.status.toLowerCase()+' for '+vehicleName(v)+' — '+j.title+'. Estimated total: '+cash(totalFor(j).total)+'. Please contact 586-843-4157 to review and authorize before any work begins.';window.location.href='sms:'+phone+'?body='+encodeURIComponent(msg)}
