@@ -159,9 +159,10 @@ async function decodeVehicleForm(){
  }finally{if(button)button.disabled=false}
 }
 function plateLookupInfo(){
- openDialog("License plate lookup",'<div class="callout"><b>Plate-to-VIN service not connected.</b><p>Michigan does not provide this app with unrestricted public plate identification or private owner records. A licensed commercial plate/VIN provider and an authorized-purpose review are needed before automatic lookup can be enabled.</p><p>For now, record the customer-provided plate and state, and scan/enter the VIN to use NHTSA decoding.</p><p><a href="https://www.michigan.gov/sos/faqs/transparency-and-foia/driver-and-vehicle-records" target="_blank" rel="noopener" style="color:#e6c58c">Michigan vehicle record privacy guidance ↗</a></p></div>');
+ const status=byId("vin-status"),detail=byId("vin-result");
+ if(status)status.textContent="Plate-to-VIN lookup needs an authorized paid data provider. No automatic lookup is active.";
+ if(detail)detail.textContent="Please record the plate and state manually, then use the physical 17-character VIN for NHTSA decoding. Michigan DMV owner records are protected.";
 }
-
 
 function lineEditorRow(l,i){
   l=l||{type:"labor",description:"",qty:1,unitPrice:state.prefs.laborRate,taxable:false};
