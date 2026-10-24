@@ -1,0 +1,33 @@
+name: Garage OS Quality Checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/estimate-engine.js'
+      - 'app/app.js'
+      - 'app/index.html'
+      - 'app/tests/**'
+      - '.github/workflows/garage-os-ci.yml'
+  pull_request:
+    paths:
+      - 'app/**'
+      - '.github/workflows/garage-os-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  financial-calculations:
+    name: Verify estimate calculations
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run regression tests
+        run: node --test app/tests/estimate-engine.test.cjs
