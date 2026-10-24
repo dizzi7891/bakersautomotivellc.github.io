@@ -30,8 +30,13 @@ Build **Baker's Automotive's own excellent, reliable, prestigious, fully functio
 - [x] Itemized work-order operations: multiple labor and part rows, quantities, unit rates, part tax flags, discounts, invoice detail, old-estimate compatibility.
 - [ ] Add purchasing and inventory: part purchase cost, target margin/markup, vendor/part lookup, purchase orders and stock counts.
 - [ ] Build a proper repair lifecycle: quote → approval → repair → completed → invoiced → paid; protect against accidental approval/payment claims.
-- [ ] Build shop-compliant MI estimate, work order, invoice, authorization, warranty and tax documents; confirm applicable disclosures and statutes before treating docs as legal final versions.
+- [ ] Get legal/compliance review of all Michigan paperwork; implement verified customer signatures, approval audit evidence, secure retention and actual final-invoice certification before claiming compliance.
 - [x] Vehicle service/inspection history dialogs and actionable upcoming-maintenance review queue based on manually entered service dates.
+- [x] Integrate public NHTSA vPIC VIN decoder with explicit errors, manufacturer data preview and technician-verification step.
+- [x] Add license-plate and state fields while preventing unlicensed plate-to-VIN/owner lookups.
+- [x] Add Michigan repair-documentation readiness screen, item condition and staff-entered authorization records, plus facility and mechanic certificate configuration.
+- [x] Show compliance omissions clearly in printed draft records rather than declaring documents legally compliant.
+- [x] Apply a more consistent Garage OS interface and branded product identity.
 - [ ] Extend service history: VIN decode, mileage-based service intervals, automatic reminders, technician assignments and time tracking.
 - [x] Work-order CSV export, paid/open work totals, proposed fleet billing scenarios; distinguish manual Paid status from verified transactions.
 - [ ] Real business KPI reporting: verified payment collection, accounts receivable, parts cost/profit and accounting reconciliation.
@@ -46,6 +51,7 @@ Build **Baker's Automotive's own excellent, reliable, prestigious, fully functio
 - [ ] Lock down customer records; public GitHub Pages by itself does not make localStorage confidential or cloud-safe.
 - [ ] Protect file uploads, VIN/customer details, invoicing and approval audit trails; implement data retention and account recovery.
 - [ ] Add payments and subscriptions **only after** safe account/tenant separation and shop billing workflows are reliable.
+- [ ] Connect an approved commercial plate-to-VIN data provider via protected server-side credentials, lawful purpose controls, rate limits and audit logs; do not expose owner DMV data.
 - [ ] Test with fictional data in staging before putting real customer records into production.
 
 #### P3 — Customer and FleetCare portals
