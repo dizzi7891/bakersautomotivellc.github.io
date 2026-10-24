@@ -1,0 +1,25 @@
+{
+  "name": "Baker's Garage OS",
+  "short_name": "Garage OS",
+  "description": "Local-first automotive repair shop workspace",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0d0e",
+  "theme_color": "#0b0d0e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../bakers-logo.png",
+      "type": "image/jpeg",
+      "sizes": "any",
+      "purpose": "any"
+    }
+  ]
+}
