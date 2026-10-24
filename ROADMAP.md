@@ -2,7 +2,7 @@
 
 **Project owner:** Baker's Automotive Repair LLC
 **Repository:** `dizzi7891/bakersautomotivellc.github.io`
-**Last reviewed:** 2026-10-24
+**Last reviewed:** 2026-10-24 (Garage OS itemized-estimate upgrade)
 
 ## North star — DO NOT LOSE THIS
 Build **Baker's Automotive's own excellent, reliable, prestigious, fully functional website and business operating system first.** Garage OS can later become a product other independent repair shops license or hire Baker's to customize, but commercializing it must **not displace completing the original Baker's shop platform**.
@@ -23,13 +23,18 @@ Build **Baker's Automotive's own excellent, reliable, prestigious, fully functio
 
 #### P1 — Make Garage OS rock-solid for Baker's day-to-day shop work
 - [x] Local-first prototype with customers, vehicles, estimates, inspections, work orders, reports and JSON backup.
-- [x] Basic parts + labor + Michigan sales tax calculations, print-ready draft reports and documents.
-- [ ] Test the full workflow end-to-end, including edits, deletes, bad inputs, backups, mobile print and PWA/offline behavior.
-- [ ] Expand work-order lines and parts inventory: individual parts, quantities, cost, markup, labor operations, labor categories, taxes, discounts and totals.
+- [x] Cent-precision itemized labor/parts/fees/discount calculations, taxable versus exempt parts tax, live total preview and print-ready draft documents.
+- [x] Add automated GitHub Actions regression tests for estimates, tax and shop workflow smoke tests.
+- [x] Add backup cross-reference validation before destructive restore.
+- [ ] Finish browser-based device QA: edits, deletes, bad inputs, backup restore, mobile print, accessibility, true PWA/offline behavior and security.
+- [x] Itemized work-order operations: multiple labor and part rows, quantities, unit rates, part tax flags, discounts, invoice detail, old-estimate compatibility.
+- [ ] Add purchasing and inventory: part purchase cost, target margin/markup, vendor/part lookup, purchase orders and stock counts.
 - [ ] Build a proper repair lifecycle: quote → approval → repair → completed → invoiced → paid; protect against accidental approval/payment claims.
 - [ ] Build shop-compliant MI estimate, work order, invoice, authorization, warranty and tax documents; confirm applicable disclosures and statutes before treating docs as legal final versions.
-- [ ] Service history by VIN/vehicle, maintenance intervals, reminders, technician assignment and tracking.
-- [ ] Real business KPI reporting; distinguish invoiced, approved, unpaid, paid and profit from estimates.
+- [x] Vehicle service/inspection history dialogs and actionable upcoming-maintenance review queue based on manually entered service dates.
+- [ ] Extend service history: VIN decode, mileage-based service intervals, automatic reminders, technician assignments and time tracking.
+- [x] Work-order CSV export, paid/open work totals, proposed fleet billing scenarios; distinguish manual Paid status from verified transactions.
+- [ ] Real business KPI reporting: verified payment collection, accounts receivable, parts cost/profit and accounting reconciliation.
 
 **Current local prototype:** https://dizzi7891.github.io/bakersautomotivellc.github.io/app/
 
@@ -69,4 +74,4 @@ Build **Baker's Automotive's own excellent, reliable, prestigious, fully functio
 7. A third-party shop product is the **later commercialization track**, not the primary workstream.
 
 ## Next concrete milestone
-**Finish P0 functional contact intake and mobile QA, then prioritize P1 production-grade work orders and P2 secure user accounts/backups.** Never skip to selling subscriptions while Baker's own business workflows are unfinished.
+**Finish P0 production contact intake and device QA, test P1 quote-to-invoice lifecycle, and connect P2 secure user accounts, tenant isolation and backups.** Never skip to selling subscriptions while Baker's own business workflows are unfinished.
