@@ -4,10 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'app/estimate-engine.js'
-      - 'app/app.js'
-      - 'app/index.html'
-      - 'app/tests/**'
+      - 'app/**'
       - '.github/workflows/garage-os-ci.yml'
   pull_request:
     paths:
