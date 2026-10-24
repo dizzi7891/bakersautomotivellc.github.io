@@ -1,0 +1,36 @@
+name: Public Website Quality Checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'fleet-services.html'
+      - 'garage-os-for-shops.html'
+      - 'assets/**'
+      - 'tests/**'
+      - '.github/workflows/public-site-ci.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'fleet-services.html'
+      - 'garage-os-for-shops.html'
+      - 'assets/**'
+      - 'tests/**'
+      - '.github/workflows/public-site-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  website-intake:
+    name: Verify website contact experience
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check public website intake and form functionality
+        run: node --test tests/*.test.cjs
