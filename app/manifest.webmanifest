@@ -1,7 +1,7 @@
 {
-  "name": "Baker's Garage OS",
+  "name": "Baker's Garage OS — Repair Management",
   "short_name": "Garage OS",
-  "description": "Local-first automotive repair shop workspace",
+  "description": "Baker's Automotive local-first shop workspace with vehicle identification and Michigan repair documentation review",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -10,16 +10,16 @@
   "orientation": "any",
   "icons": [
     {
+      "src": "../assets/garage-os-crest.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
       "src": "icon.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "any maskable"
-    },
-    {
-      "src": "../bakers-logo.png",
-      "type": "image/jpeg",
-      "sizes": "any",
-      "purpose": "any"
     }
   ]
 }
