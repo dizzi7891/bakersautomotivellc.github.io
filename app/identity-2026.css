@@ -1,0 +1,60 @@
+/* Garage OS · Studio Design System 2026
+   Harmonizes navigation, records, modals and MI-compliance visuals.
+   Respects existing local-only app functionality and reduced-motion preferences.
+ */
+:root{--bg:#0b0f10;--panel:#171c1c;--panel2:#202626;--edge:#48473f;--text:#f5f0e6;--sub:#b9bbb2;--gold:#d8b47c;--gold2:#f1d7a4;--ok:#9bceac;--bad:#e7a290}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.003em;line-height:1.55}
+.sidebar{background:linear-gradient(166deg,#191d1c,#101515 55%,#0d1010);border-right:1px solid #8b704956}
+.sidebar .app-brand{gap:8px;margin:0 3px 37px}
+.brand-emblem-img{width:66px;height:65px;object-fit:contain;flex:none;filter:drop-shadow(0 7px 12px #0008)}
+.app-brand strong{font-family:Georgia,serif;font-size:19px;letter-spacing:.06em}
+.app-brand small{font-size:9px;letter-spacing:.14em;color:#e7c793}
+.side-nav button{border-radius:4px;min-height:49px;font-size:12px}
+.side-nav button.active{border-color:#ad88547d;background:#3a3126;box-shadow:inset 3px 0 #dcb97d;color:#f3d8a4}
+.app-topbar{background:#111616;min-height:81px}
+.crumb strong{font-family:Georgia,"Times New Roman",serif;font-size:21px;letter-spacing:-.025em}
+.view-intro h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.04em;text-transform:none;font-size:clamp(35px,4.2vw,52px)}
+.view-intro .eyebrow{letter-spacing:.2em}
+.ghost-btn,.gold-btn{border-radius:3px;min-height:42px}
+.gold-btn{background:linear-gradient(135deg,#f2d7a3,#c49b5e);border-color:#dcba86}
+.gold-btn:hover{background:#f6dca7}
+.panel,.metric,.table-wrap,.form,.estimate-line{border-radius:4px}
+.metric{background:linear-gradient(145deg,#292c28,#151a1a);border-color:#565344}
+.metric.gold{background:linear-gradient(145deg,#49402e,#282820)}
+.panel{background:linear-gradient(145deg,#202524,#111817);border-color:#54554b}
+.table-wrap{border-color:#665942}
+.data-table th{background:#2c2e28;color:#edd8af}
+.data-table td{font-size:12px}
+.field input,.field textarea,.field select,.toolbar input{min-height:44px;border-radius:4px}
+.field input:focus-visible,.field textarea:focus-visible,.field select:focus-visible{outline:2px solid #dcb97d;outline-offset:1px}
+dialog{border-radius:7px;border-color:#ae905c}
+.dialog-top{background:linear-gradient(95deg,#363225,#202825)}
+.dialog-top h2{font:800 23px/1.2 Georgia,serif;letter-spacing:-.02em;text-transform:none}
+.vehicle-id-panel{border:1px solid #9f804e;background:linear-gradient(135deg,#302e23,#1b211d);padding:18px!important;border-radius:4px}
+.vehicle-id-panel strong{font:750 23px Georgia,serif;color:#eed3a1;letter-spacing:-.03em;text-transform:none}
+.vehicle-id-panel p{font-size:12px;color:#d0c9b8;line-height:1.65;margin:7px 0 0;letter-spacing:0;text-transform:none;font-weight:500}
+.vin-actions{display:flex!important;flex-direction:row!important;align-items:center;flex-wrap:wrap;gap:11px}
+.vin-actions button{white-space:nowrap}
+.vin-actions [role=status]{flex:1 1 230px;color:#d8d5ca;font-size:11px;line-height:1.55;letter-spacing:0;text-transform:none;font-weight:500}
+#vin-result{display:block;color:#e6c68d;font-size:12px;letter-spacing:0;text-transform:none;font-weight:650}
+#vin-result:empty{display:none}
+.pro-workorder .pro-lines-heading{border-top-color:#a28654}
+.pro-check-field{display:flex!important;flex-direction:row!important;align-items:flex-start;gap:12px;text-transform:none;font-size:12px;letter-spacing:0}
+.pro-check-field input[type=checkbox]{min-height:0;width:18px;height:18px;flex:none;accent-color:#d9b77d}
+.pro-check-field span{color:#dfd5c0;font-weight:550;line-height:1.65}
+.compliance-source-link{color:#ebc88e;text-decoration:underline;text-underline-offset:3px}
+.compliance-record-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.compliance-findings{padding:3px 0 0 15px;margin:11px 0 3px;display:grid;gap:6px;list-style:none}
+.compliance-findings li{font-size:12px;line-height:1.6;color:#d9d0bf;position:relative;padding-left:15px}
+.compliance-findings li:before{content:"";width:6px;height:6px;position:absolute;left:0;top:7px;background:#b5a27c;border-radius:50%}
+.compliance-findings li.required:before{background:#e5a18e}
+.compliance-findings li.required{color:#f0c3b6}
+.compliance-findings li.info{color:#a6b9ad}
+.history-record{padding:23px 2px}
+.history-record .tag{font-weight:750;font-family:system-ui,sans-serif}
+.app-footer{background:#0c1010}
+a:focus-visible,button:focus-visible,[role=button]:focus-visible{outline:2px solid #ecd1a0;outline-offset:3px}
+@media(max-width:920px){.sidebar .app-brand{gap:4px}.brand-emblem-img{width:54px;height:54px}.app-brand strong{font-size:17px}}
+@media(max-width:780px){.sidebar{position:fixed}.app-topbar{min-height:75px}.brand-emblem-img{width:59px;height:59px}.view-intro h1{font-size:38px}}
+@media(max-width:560px){.dialog-body{padding:18px}.vin-actions{gap:8px}.vin-actions .gold-btn,.vin-actions .ghost-btn{width:100%}.vehicle-id-panel{padding:14px!important}.pro-check-field{align-items:flex-start}.view-intro h1{font-size:32px}.compliance-record-head{align-items:flex-start;flex-direction:column}.dialog-top h2{font-size:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
