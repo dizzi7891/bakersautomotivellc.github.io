@@ -14,9 +14,11 @@ Build **Baker's Automotive's own excellent, reliable, prestigious, fully functio
 - [x] Implement responsive black, gold, masculine heritage look with restrained filigree.
 - [x] Publish homepage, FleetCare page, and a separate "For Repair Shops" inquiry page.
 - [x] Link repair service calls-to-action to estimates, phone, and contact details.
+- [x] Add a common public contact-request composer on all 3 pages: prefilled SMS, email and copyable details, transparent Send handoff, and mobile sticky Call/Text.
+- [x] Add automated public-site checks for request generation, page consistency and avoidance of false auto-submission claims.
 - [ ] **Manual visual QA** on Android/iOS and desktop: verify imagery, contrast, menu, scrolling, layout, accessibility.
 - [ ] Confirm accurate business info, actual services, repairs, opening hours and claims everywhere.
-- [ ] Upgrade forms from `mailto:` draft to a reliable, anti-spam, permissioned submission/notification backend; capture real inquiry delivery and track new leads.
+- [ ] Connect a verified, anti-spam **real submission backend** so inquiries arrive automatically and securely, rather than relying on customers to press Send in their texting/email apps. Add delivery alerts, consent and lead tracking.
 - [ ] Confirm public deployment and domain/SEO decisions.
 
 **Public site:** https://dizzi7891.github.io/bakersautomotivellc.github.io/
@@ -80,4 +82,4 @@ Build **Baker's Automotive's own excellent, reliable, prestigious, fully functio
 7. A third-party shop product is the **later commercialization track**, not the primary workstream.
 
 ## Next concrete milestone
-**Finish P0 production contact intake and device QA, test P1 quote-to-invoice lifecycle, and connect P2 secure user accounts, tenant isolation and backups.** Never skip to selling subscriptions while Baker's own business workflows are unfinished.
+**Check the new public intake experience on an actual phone, then connect secure submissions + authenticated customer data (Supabase authorization still required), followed by P1 quote-to-invoice signoff and technician workflows.** Never skip to selling subscriptions while Baker's own business workflows are unfinished.
