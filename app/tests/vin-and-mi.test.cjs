@@ -27,6 +27,7 @@ test("VIN service incomplete results never fill incorrect vehicle identity",()=>
  assert.throws(()=>VIN.parse({Results:[{Make:"Honda",Model:"",ModelYear:"2008"}]}),/incomplete/);
  assert.throws(()=>VIN.parse({Results:[]}),/no usable/);
 });
+test("VIN decoder rejects government error codes instead of autofilling incorrect details",()=>{const {VIN}=setup();assert.throws(()=>VIN.parse({Results:[{Make:"Honda",Model:"Accord",ModelYear:"2003",ErrorCode:"6",ErrorText:"Invalid VIN"}]}),/NHTSA flagged/)});
 test("MI compliance flags missing registration, replacement-part condition and authorization",()=>{
  const {MI}=setup();
  const report=MI.check({status:"In Progress",lineItems:[{type:"part",description:"Pads",qty:1,unitPrice:80}],approvedAmount:100}, {},200);
