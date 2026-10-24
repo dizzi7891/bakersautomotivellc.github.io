@@ -1,0 +1,28 @@
+/* Baker's Garage OS — restrained filigree accents to match approved website. */
+.app-shell{background:radial-gradient(ellipse at 85% 0,#b7904f0d,transparent 37%),#0b0e0e}
+.sidebar{position:sticky;overflow:hidden}
+.sidebar:before{content:"";position:absolute;pointer-events:none;top:0;left:0;width:125px;height:125px;background:url('../assets/filigree-corner.svg') left top/contain no-repeat;opacity:.19}
+.sidebar:after{content:"";position:absolute;pointer-events:none;right:0;bottom:0;width:88px;height:88px;background:url('../assets/filigree-corner.svg') left top/contain no-repeat;transform:rotate(180deg);opacity:.13}
+.app-brand{position:relative;z-index:1}
+.brand-emblem{border-radius:50%;font-size:0;background:radial-gradient(circle at 32% 29%,#393123,#171b1a 65%);border:1px solid #d1ad72;box-shadow:0 0 0 5px #c6a06c16,0 11px 25px #0006}
+.brand-emblem:after{content:"B";font:800 29px/.95 Georgia,serif;letter-spacing:-.07em;color:#e4c085;text-shadow:0 2px 2px #000}
+.brand-emblem span{display:none}
+.app-brand strong{font-family:Georgia,"Times New Roman",serif;font-weight:900;font-size:19px;letter-spacing:.05em}
+.app-topbar{position:relative}
+.app-topbar:after{content:"";position:absolute;right:15px;bottom:0;width:190px;height:13px;background:url('../assets/filigree-rule.svg') center/contain no-repeat;opacity:.55;pointer-events:none}
+.view-intro{position:relative}
+.view-intro .eyebrow:before{content:"✦";font-family:Georgia,serif;color:#e1c189;margin-right:11px}
+.view-intro h1{font-family:Georgia,"Times New Roman",serif;font-weight:750;letter-spacing:-.045em;text-transform:none}
+.view-intro h1:after{content:"";display:block;width:220px;height:15px;margin-top:15px;background:url('../assets/filigree-rule.svg') center/contain no-repeat;opacity:.85}
+.metrics .metric.gold:after{content:"";position:absolute;right:-9px;top:-8px;width:68px;height:68px;background:url('../assets/filigree-corner.svg') left top/contain no-repeat;opacity:.37;transform:scaleX(-1);pointer-events:none}
+.panel-head h2{font-family:Georgia,"Times New Roman",serif;font-size:19px;text-transform:none;letter-spacing:-.025em}
+.panel{border-top-color:#9d814f59}
+.quick-card{position:relative;overflow:hidden}
+.quick-card:after{content:"";position:absolute;top:0;right:0;width:36px;height:36px;background:url('../assets/filigree-corner.svg') left top/contain no-repeat;transform:scaleX(-1);opacity:.22}
+.dialog-top:after{content:"";position:absolute;top:0;right:0;width:72px;height:72px;background:url('../assets/filigree-corner.svg') left top/contain no-repeat;transform:scaleX(-1);opacity:.2;pointer-events:none}
+.table-wrap{border-top-color:#ac8d5f82}
+.data-table th{border-bottom:1px solid #8b713e4f}
+.metric .m-value{color:#f7e9c9}
+.metric.gold .m-value{color:#f8d398}
+@media(max-width:780px){.sidebar{position:fixed;overflow:hidden}.app-topbar:after{width:90px;opacity:.3}.view-intro h1{font-size:clamp(30px,7.5vw,42px)}.view-intro h1:after{width:150px}.brand-emblem{width:48px;height:48px}.metric .m-value{font-size:27px}}
+@media(max-width:450px){.metric .m-value{font-size:23px}.app-topbar:after{display:none}}
