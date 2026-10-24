@@ -27,7 +27,7 @@ function check(job,prefs,total){
    }
  }
  const items=Array.isArray(j.lineItems)?j.lineItems:[];
- if(items.some(l=>l&&l.type==="part"&&!str(l.condition)))add("required","parts-condition","Specify whether each replacement part is new OEM, new aftermarket, OEM surplus, used, rebuilt or reconditioned.");
+ if(items.some(l=>l&&l.type==="part"&&!str(l.condition)) || (!items.length && Number(j.parts)>0))add("required","parts-condition","Specify whether each replacement part is new OEM, new aftermarket, OEM surplus, used, rebuilt or reconditioned.");
  if(FINAL.includes(j.status)){
    if(!str(p.technicianName)||!str(p.mechanicCertificate))add("required","mechanic","Enter the diagnosing/repairing mechanic's name and Michigan certificate number.");
    if(!str(j.completionSigner))add("required","completion-certification","Final invoices require facility-owner/designee certification or an explanation of incomplete repairs, signed by the responsible person.");
