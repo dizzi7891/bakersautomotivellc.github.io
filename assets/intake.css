@@ -1,0 +1,26 @@
+/* Baker's Automotive — service-intake UX 2026 */
+.intake-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0 12px}
+.form .intake-actions .btn{margin-top:0;min-height:47px}
+.intake-primary{flex:1 1 175px;justify-content:center}
+.intake-email{flex:1 1 130px;justify-content:center}
+.intake-copy{min-height:47px;border:1px solid #95794e;background:#1a1d1c;color:#e8cf9f;letter-spacing:.12em;font-size:11px;text-transform:uppercase;font-weight:850;border-radius:2px;padding:10px 13px}
+.intake-copy:hover{background:#323027;border-color:#e1bc80}
+.intake-copy:focus-visible{outline:3px solid #e7c88f;outline-offset:3px}
+.intake-preview{margin:18px 0 8px;background:#121716;border:1px solid #7b6a4f;padding:16px;border-radius:3px}
+.intake-preview[hidden]{display:none}
+.intake-preview-label{display:block;color:#e6c389;font-weight:800;letter-spacing:.1em;font-size:11px;text-transform:uppercase;margin-bottom:10px}
+.intake-preview textarea{resize:vertical;width:100%;min-height:145px;background:#0d1110;color:#e7e2d7;border:1px solid #70644d;padding:14px;font-size:12px;line-height:1.65;border-radius:2px}
+.intake-preview p{color:#bfbab0;line-height:1.65;font-size:11px;margin:10px 0 0}
+.form .notice{background:#1c201d;border-left:2px solid #bea173;padding:11px 14px;margin-top:16px;font-size:11px;color:#d0c8b8;line-height:1.6}
+.form .notice.intake-warning{border-left-color:#ecaa83;color:#f4c7af;background:#2a221e}
+.mobile-contact-bar{display:none}
+@media(max-width:850px){
+  .mobile-contact-bar{position:fixed;z-index:15;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:9px 12px max(10px,env(safe-area-inset-bottom));background:#111615f5;border-top:1px solid #a18152;box-shadow:0 -8px 30px #0009;backdrop-filter:blur(14px)}
+  .mobile-contact-bar a{display:flex;align-items:center;justify-content:center;min-height:43px;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;border:1px solid #b9955f;border-radius:3px}
+  .mobile-contact-call{background:linear-gradient(125deg,#e5c98f,#bd9256);color:#101513}
+  .mobile-contact-text{background:#20241f;color:#eac98d}
+  body{padding-bottom:76px}
+  .footer{padding-bottom:16px}
+}
+@media(max-width:520px){.intake-actions{display:grid;grid-template-columns:1fr 1fr}.intake-primary{grid-column:1/-1}.intake-copy,.intake-email{width:100%;flex:none}.intake-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.mobile-contact-bar{backdrop-filter:none}}
