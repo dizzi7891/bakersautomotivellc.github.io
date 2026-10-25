@@ -65,7 +65,7 @@
 .fleet-band{background:linear-gradient(110deg,#aa8348,#e5c992)}
 .fleet-band h2{font-family:Georgia,serif;font-weight:800;letter-spacing:-.045em}
 .subhero{isolation:isolate;background:radial-gradient(ellipse at 75% 35%,#6551303d,transparent 47%),linear-gradient(110deg,#1a1e1c,#090c0c);border-bottom:1px solid #8f6e42}
-.subhero:after{content:"";position:absolute;right:0;bottom:0;width:340px;height:100%;background:url('fleetcare-crest.svg') center/contain no-repeat;opacity:.15;pointer-events:none}
+.subhero:after{content:"";position:absolute;right:0;bottom:0;width:340px;height:100%;background:url('fleetcare-crest-v2.svg') center/contain no-repeat;opacity:.15;pointer-events:none}
 .subhero .wrap{position:relative;z-index:1}
 .subhero h1{text-shadow:0 3px 15px #0007}
 .footer .imagery-disclaimer{display:none}
