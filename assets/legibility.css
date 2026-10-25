@@ -1,0 +1,64 @@
+/* Baker's Automotive — mobile brand readability release.
+   Text in logos must not compete with illustrations. Primary information lives in HTML.
+   This file is the final stylesheet on all public pages. */
+:root{--brand-champagne:#e9cb91;--brand-black:#0b0e0d}
+.header .brand img,.footer .brand img{height:55px;width:55px;object-fit:contain;flex:0 0 auto;background:none;box-shadow:none;border:0;padding:0}
+.header .brand{gap:11px;align-items:center}
+.header .brand strong{font:800 clamp(15px,1.6vw,20px)/1.17 Georgia,"Times New Roman",serif;letter-spacing:-.02em;white-space:normal}
+.header .brand small{font-size:clamp(10px,1vw,12px);letter-spacing:.13em;line-height:1.5;color:#e5c48a;margin-top:3px}
+.heritage-mark>img{max-width:500px;display:block;aspect-ratio:5/4;object-fit:contain}
+.heritage-mark .heritage-mark-caption{font-size:13px;line-height:1.65;font-weight:850;letter-spacing:.16em;color:#ead09d;margin:0 0 12px;text-shadow:0 2px 9px #000}
+.heritage-mark:before{inset:17% 19%;opacity:.58}
+.prestige-showcase .badge-area img{max-width:295px;max-height:292px;object-fit:contain;display:block}
+.prestige-showcase .showcase-text h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,2.75vw,43px);line-height:1.17;letter-spacing:-.04em;color:#fae4b5}
+.prestige-showcase .showcase-tag{font-size:12px;line-height:1.35;letter-spacing:.13em;color:#eed0a0}
+.prestige-showcase .feature-list li{font-size:12px;line-height:1.55}
+.prestige-showcase .showcase-panel{border-color:#9d845a;box-shadow:inset 0 1px #f7dca31b}
+.prestige-showcase .showcase-panel:before{border-color:#9f855a2d}
+.prestige-showcase .showcase-panel:after{opacity:.18}
+.topline{line-height:1.5}
+@media(max-width:920px){
+ .header .brand img{width:52px;height:52px}
+ .heritage-mark>img{max-height:330px}
+ .prestige-showcase .badge-area img{max-height:262px;max-width:265px}
+}
+@media(max-width:600px){
+ .header .nav{min-height:76px}
+ .header .brand{gap:8px;min-width:0;max-width:calc(100% - 132px)}
+ .header .brand img{width:47px;height:47px}
+ .header .brand strong{font-size:clamp(14px,3.9vw,17px);line-height:1.1}
+ .header .brand small{font-size:11px;letter-spacing:.1em;line-height:1.35}
+ .menu-button{min-height:49px;padding:10px 13px;font-size:15px}
+ .hero.heritage-hero:before{width:107px;height:107px;opacity:.22}
+ .heritage-hero-grid{padding-top:20px;padding-bottom:52px}
+ .heritage-mark>img{width:min(100%,342px);height:auto;max-height:285px;aspect-ratio:5/4;object-fit:contain}
+ .heritage-mark .heritage-mark-caption{font-size:11px;letter-spacing:.1em;line-height:1.5;margin:-6px 0 15px;color:#efdaac}
+ .heritage-copy{padding-top:5px}
+ .heritage-copy .eyebrow{font-size:11px;line-height:1.7;letter-spacing:.075em}
+ .heritage-copy h1{font-size:clamp(33px,9.1vw,47px);line-height:1.11;letter-spacing:-.045em;margin:16px 0 17px}
+ .heritage-copy h1 em{font-size:1.02em;letter-spacing:-.045em}
+ .heritage-divider{margin-bottom:16px}
+ .heritage-copy .lead{font-size:16px;line-height:1.75}
+ .prestige-showcase .showcase-panel{padding:21px 21px 28px}
+ .prestige-showcase .badge-area{height:auto;min-height:198px;max-height:212px;margin:1px 0 14px}
+ .prestige-showcase .badge-area img{max-width:240px;max-height:198px}
+ .prestige-showcase .showcase-text{gap:0}
+ .prestige-showcase .showcase-text h2{font-size:clamp(30px,8.4vw,40px);line-height:1.13;margin:8px 0 15px}
+ .prestige-showcase .showcase-tag{font-size:11px;letter-spacing:.12em}
+ .prestige-showcase .showcase-panel p{font-size:13px;line-height:1.7}
+ .prestige-showcase .feature-list{margin:15px 0 6px;gap:7px}
+ .prestige-showcase .feature-list li{font-size:13px;line-height:1.5}
+ .prestige-showcase .showcase-actions{margin-top:21px}
+ .prestige-showcase .showcase-panel .btn{min-height:45px;font-size:11px;letter-spacing:.07em}
+ .service-rail a{font-size:10px;line-height:1.35}
+ .topline{font-size:10px;letter-spacing:.1em;padding:8px 14px}
+}
+@media(max-width:360px){
+ .header .brand strong{font-size:13px}
+ .header .brand small{font-size:10px}
+ .header .brand img{width:43px;height:43px}
+ .menu-button{font-size:14px;padding:9px}
+ .heritage-mark>img{max-height:245px}
+ .heritage-copy h1{font-size:32px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
