@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620" role="img" aria-labelledby="t"><title id="t">Baker's FleetCare commercial vehicle crest</title><defs><linearGradient id="metal" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#fff1c8"/><stop offset=".18" stop-color="#d1b17d"/><stop offset=".46" stop-color="#956d34"/><stop offset=".64" stop-color="#f4d9a2"/><stop offset=".82" stop-color="#ad8047"/><stop offset="1" stop-color="#f2cc7f"/></linearGradient><linearGradient id="shaded" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#33312a"/><stop offset=".48" stop-color="#151919"/><stop offset="1" stop-color="#090c0c"/></linearGradient><linearGradient id="ribbon" x1="0" x2=".25" y1="0" y2="1"><stop stop-color="#fae7b9"/><stop offset=".48" stop-color="#d7b177"/><stop offset="1" stop-color="#8c642e"/></linearGradient><filter id="drop"><feDropShadow dx="0" dy="13" stdDeviation="11" flood-color="#000" flood-opacity=".83"/></filter><pattern id="noise" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M0 0L22 22M0 22L22 0" stroke="#b7955e" stroke-opacity=".07" stroke-width=".5"/></pattern></defs><g filter="url(#drop)"><path d="M400 42L691 147V359Q691 486 400 572Q109 486 109 359V147Z" fill="url(#shaded)" stroke="url(#metal)" stroke-width="17"/><path d="M400 65L665 161V356Q665 474 400 543Q135 474 135 356V161Z" fill="none" stroke="#d2ac68" stroke-width="2"/><g fill="none" stroke="url(#metal)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"><path d="M209 284H447V354H209Z"/><path d="M447 307H523L557 337V354H447Z"/><path d="M245 265H424" stroke-width="3"/><circle cx="271" cy="358" r="27" fill="#101514"/><circle cx="493" cy="358" r="27" fill="#101514"/><path d="M465 323H513M181 354H209"/></g><path d="M172 391H628M204 424H596" stroke="#b18b52" stroke-width="2"/><text x="400" y="178" text-anchor="middle" font-family="Georgia,serif" font-size="64" fill="url(#metal)" font-weight="900">BAKER’S</text><text x="400" y="469" text-anchor="middle" font-family="Georgia,serif" font-size="73" font-weight="900" fill="url(#metal)" letter-spacing="-1">FLEETCARE</text><text x="400" y="508" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#e4ca99" letter-spacing="5">COMMERCIAL VEHICLE SERVICE</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-labelledby="title desc">
+<title id="title">Baker’s FleetCare</title><desc id="desc">Clear gold and black commercial truck shield, with distinct, large Baker’s FleetCare wording.</desc>
+<defs>
+<linearGradient id="gold" x1=".08" y1=".05" x2=".92" y2=".95" objectBoundingBox="true"><stop stop-color="#fff2c8"/><stop offset=".23" stop-color="#dab97c"/><stop offset=".47" stop-color="#a87b40"/><stop offset=".69" stop-color="#f4d79c"/><stop offset="1" stop-color="#90652d"/></linearGradient>
+<linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2b302d"/><stop offset=".55" stop-color="#111715"/><stop offset="1" stop-color="#090c0b"/></linearGradient>
+<linearGradient id="cham" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff0c6"/><stop offset=".6" stop-color="#d3a760"/><stop offset="1" stop-color="#a17738"/></linearGradient>
+<filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="11" stdDeviation="13" flood-opacity=".74"/></filter>
+</defs>
+<g filter="url(#shadow)">
+<path d="M400 30L706 140V359Q706 497 400 604Q94 497 94 359V140Z" fill="url(#panel)" stroke="url(#gold)" stroke-width="20"/>
+<path d="M400 62L671 158V359Q671 467 400 568Q129 467 129 359V158Z" fill="none" stroke="#d2ad74" stroke-width="3"/>
+<text x="400" y="156" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="900" font-size="76" fill="url(#cham)" letter-spacing="-1">BAKER’S</text>
+<g fill="url(#cham)" stroke="#312a1b" stroke-linejoin="round" stroke-width="5">
+<path d="M182 227H473Q483 227 483 241V336H170V242Q170 227 182 227Z"/>
+<path d="M483 257H552Q568 257 581 280L611 327V336H483Z"/>
+<path d="M511 274H549L567 308H511Z" fill="#171b1a" stroke="#bf975f" stroke-width="3"/>
+<path d="M186 323H601" stroke="#f2d9a4" stroke-width="7"/>
+<circle cx="267" cy="350" r="30" fill="#131717" stroke="url(#gold)" stroke-width="13"/>
+<circle cx="538" cy="350" r="30" fill="#131717" stroke="url(#gold)" stroke-width="13"/>
+<circle cx="267" cy="350" r="8" fill="#e7c58b" stroke="none"/>
+<circle cx="538" cy="350" r="8" fill="#e7c58b" stroke="none"/>
+</g>
+<path d="M110 404H690L704 423V515L687 531H113L96 515V423Z" fill="#0c1110" stroke="url(#gold)" stroke-width="12"/>
+<path d="M120 424H680V507H120Z" fill="none" stroke="#6c5636" stroke-width="3"/>
+<text x="400" y="490" text-anchor="middle" font-family="Georgia, 'Times New Roman',serif" font-size="100" font-weight="900" fill="url(#cham)" letter-spacing="-5">FLEETCARE</text>
+</g></svg>
