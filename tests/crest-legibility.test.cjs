@@ -16,7 +16,7 @@ test("main and FleetCare emblems contain no tiny captions overlapping important 
  assert.doesNotMatch(fleet,/COMMERCIAL VEHICLE SERVICE/);
  assert.doesNotMatch(fleet,/font-size="(?:[1-9]|1[0-9]|2[0-9])"/);
 });
-test("site loads refreshed crests and compact header symbol",()=>{
+test("site loads approved branding artwork and compact header symbol",()=>{
  for(const p of ["index.html","fleet-services.html","garage-os-for-shops.html"]){
   const h=read(p);
   assert.match(h,/assets\/legibility\.css/);
@@ -25,8 +25,9 @@ test("site loads refreshed crests and compact header symbol",()=>{
   assert.doesNotMatch(h,/src="assets\/fleetcare-crest\.svg"/);
  }
  const h=read("index.html");
- assert.match(h,/src="assets\/bakers-crest-v2\.svg"/);
- assert.match(h,/src="assets\/fleetcare-crest-v2\.svg"/);
+ assert.match(h,/approved-crop--bakers/);
+ assert.match(h,/approved-crop--fleet/);
+ assert.match(h,/src="assets\/approved-bakers-brand-board\.avif"/);
 });
 test("updated vector files are standard self-contained SVGs",()=>{
  for(const p of ["assets/bakers-crest-v2.svg","assets/fleetcare-crest-v2.svg","assets/bakers-mark.svg"]){
