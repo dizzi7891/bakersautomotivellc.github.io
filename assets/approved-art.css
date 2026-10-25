@@ -1,0 +1,52 @@
+/* Approved Baker's Automotive brand imagery — clipped from the owner's approved brand board.
+   One genuine approved source image is used consistently, with real location and service copy kept as HTML.
+   The graphic is an illustration/concept; it is NOT a photograph of the actual shop or its vehicles. */
+:root{--approved-gold:#e1bb7e;--approved-red:#a11c24;--approved-dark:#0b0f0e}
+.approved-crop{position:relative;display:block;overflow:hidden;isolation:isolate;background:#0b0d0d;max-width:100%;width:100%}
+.approved-crop img{position:absolute!important;display:block!important;max-width:none!important;max-height:none!important;height:auto!important;object-fit:unset!important;filter:none!important;aspect-ratio:auto!important;transform:none!important}
+.approved-crop--bakers{aspect-ratio:459/354}
+.approved-crop--bakers img{width:315.5%!important;left:-4.58%!important;top:-173.2%!important}
+.approved-crop--fleet{aspect-ratio:656/610}
+.approved-crop--fleet img{width:220.74%!important;left:-3.05%!important;top:-2.46%!important}
+.approved-crop--van{aspect-ratio:772/395}
+.approved-crop--van img{width:187.56%!important;left:-88.08%!important;top:-20.25%!important}
+.heritage-mark>.approved-crop--bakers{width:min(100%,485px);margin:0 auto;background:transparent;box-shadow:0 16px 42px #0006}
+.heritage-mark .heritage-mark-caption{margin:10px 0 16px}
+.prestige-showcase .badge-area .approved-crop--fleet{width:min(100%,275px);margin:auto;background:transparent}
+.prestige-showcase .showcase-panel{border-color:#986d45;box-shadow:inset 0 1px #f4dbaa25,0 18px 30px #0004}
+.prestige-showcase .showcase-panel:after{opacity:.15}
+.prestige-showcase .showcase-panel .showcase-text h2{color:#f5ddb0}
+.approved-photo-label{font-size:10px!important;line-height:1.5!important;color:#aaac9f!important;letter-spacing:.02em!important;text-transform:none!important;text-shadow:none!important;max-width:600px}
+.prestige-showcase .showcase-text .approved-photo-label{margin-top:12px}
+.fleet-hero-proof{position:absolute;right:0;top:48%;width:min(38vw,470px);transform:translateY(-50%);padding:8px;border:1px solid #b28a527d;background:#0b0f0e;box-shadow:0 20px 40px #0008}
+.fleet-hero-proof .approved-crop--van{width:100%}
+.fleet-hero-proof .approved-photo-label{margin:7px 8px 5px;color:#b0a898!important;font-size:10px!important}
+.subhero .wrap{padding-right:min(38vw,475px)}
+.b2b-hero .art .approved-crop--bakers{width:min(100%,410px);margin:auto;box-shadow:0 28px 46px #0005}
+.approved-site-van{position:relative;max-width:640px;margin:20px auto 0;border:1px solid #8c6a44;border-radius:2px;overflow:hidden}
+.approved-site-van .approved-photo-label{display:block;padding:7px 12px;background:#101514}
+.app-brand-showcase{display:grid;grid-template-columns:minmax(0,180px) 1fr;align-items:center;gap:23px;padding:17px 22px;margin:0 0 23px;border:1px solid #9d7b4f;background:linear-gradient(110deg,#292720,#161b1a 60%,#0a0d0d);box-shadow:0 13px 27px #0004}
+.app-brand-showcase .approved-crop{background:transparent;max-width:180px;box-shadow:none}
+.app-brand-showcase .approved-crop--van{max-width:280px}
+.app-brand-showcase:has(.approved-crop--van){grid-template-columns:minmax(0,280px) 1fr}
+.app-brand-showcase strong{font:800 clamp(19px,2.4vw,30px)/1.15 Georgia,"Times New Roman",serif;color:#efcea0;display:block}
+.app-brand-showcase p{font-size:12px;line-height:1.65;color:#d1c8b6;margin:8px 0 0}
+.app-brand-showcase .approved-photo-label{color:#aaa99f!important;font-size:10px!important;margin-top:7px}
+.approved-accent{border-left:3px solid #a81c26}
+.app-topbar{border-bottom-color:#aa7f4b}
+.sidebar .app-brand img.brand-emblem-img{width:56px;height:56px}
+@media(max-width:1000px){
+ .fleet-hero-proof{position:relative;right:auto;top:auto;width:min(100%,660px);transform:none;margin:22px auto}
+ .subhero .wrap{padding-right:0}
+ .prestige-showcase .badge-area .approved-crop--fleet{width:min(100%,260px)}
+}
+@media(max-width:660px){
+ .heritage-mark>.approved-crop--bakers{max-width:340px}
+ .prestige-showcase .badge-area .approved-crop--fleet{max-width:235px}
+ .prestige-showcase .showcase-panel .badge-area{height:auto;max-height:none;min-height:0;margin-bottom:15px}
+ .app-brand-showcase,.app-brand-showcase:has(.approved-crop--van){grid-template-columns:1fr;gap:9px;text-align:center;padding:15px}
+ .app-brand-showcase .approved-crop{width:min(100%,210px);margin:auto}
+ .app-brand-showcase .approved-crop--van{width:min(100%,320px);max-width:320px}
+ .app-brand-showcase p{font-size:11px}
+ .fleet-hero-proof{margin:26px auto 13px}
+}
