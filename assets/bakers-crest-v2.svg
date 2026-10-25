@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" role="img" aria-labelledby="title desc">
+<title id="title">Baker’s Automotive Repair LLC</title><desc id="desc">Black and champagne-gold gear emblem with piston and crossed tools, and large uncluttered Baker’s Automotive Repair lettering.</desc>
+<defs>
+<linearGradient id="gold" x1=".08" y1=".05" x2=".92" y2=".95" objectBoundingBox="true"><stop stop-color="#fff2c8"/><stop offset=".23" stop-color="#dab97c"/><stop offset=".47" stop-color="#a87b40"/><stop offset=".69" stop-color="#f4d79c"/><stop offset="1" stop-color="#90652d"/></linearGradient>
+<linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2b302d"/><stop offset=".55" stop-color="#111715"/><stop offset="1" stop-color="#090c0b"/></linearGradient>
+<linearGradient id="cham" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff0c6"/><stop offset=".6" stop-color="#d3a760"/><stop offset="1" stop-color="#a17738"/></linearGradient>
+<filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="11" stdDeviation="13" flood-opacity=".74"/></filter>
+</defs>
+<g filter="url(#shadow)">
+<path d="M480.3 8.5 L500.4 31.5 L522.2 36.3 L550.1 24.0 L572.3 32.7 L584.3 60.8 L603.6 72.1 L633.9 68.9 L652.3 84.1 L655.1 114.5 L669.9 131.2 L699.7 137.6 L712.6 157.8 L705.8 187.5 L714.7 208.0 L741.1 223.3 L747.1 246.4 L731.4 272.6 L733.5 294.8 L753.9 317.5 L752.5 341.3 L729.5 361.4 L724.7 383.2 L737.0 411.1 L728.3 433.3 L700.2 445.3 L688.9 464.6 L692.1 494.9 L676.9 513.3 L646.5 516.1 L629.8 530.9 L623.4 560.7 L603.2 573.6 L573.5 566.8 L553.0 575.7 L537.7 602.1 L514.6 608.1 L488.4 592.4 L466.2 594.5 L443.5 614.9 L419.7 613.5 L399.6 590.5 L377.8 585.7 L349.9 598.0 L327.7 589.3 L315.7 561.2 L296.4 549.9 L266.1 553.1 L247.7 537.9 L244.9 507.5 L230.1 490.8 L200.3 484.4 L187.4 464.2 L194.2 434.5 L185.3 414.0 L158.9 398.7 L152.9 375.6 L168.6 349.4 L166.5 327.2 L146.1 304.5 L147.5 280.7 L170.5 260.6 L175.3 238.8 L163.0 210.9 L171.7 188.7 L199.8 176.7 L211.1 157.4 L207.9 127.1 L223.1 108.7 L253.5 105.9 L270.2 91.1 L276.6 61.3 L296.8 48.4 L326.5 55.2 L347.0 46.3 L362.3 19.9 L385.4 13.9 L411.6 29.6 L433.8 27.5 L456.5 7.1Z" fill="url(#gold)" stroke="#4d351b" stroke-width="3"/>
+<circle cx="450" cy="311" r="275" fill="#161a18" stroke="#e5c78e" stroke-width="10"/>
+<circle cx="450" cy="311" r="252" fill="none" stroke="#6b522d" stroke-width="4"/>
+<circle cx="450" cy="311" r="236" fill="none" stroke="#c19d64" stroke-width="2"/>
+<path d="M311 248Q450 72 589 248" fill="none" stroke="#e6cc98" stroke-width="4" opacity=".6"/>
+<g transform="translate(450 243)">
+ <g transform="rotate(-46)"><rect x="-15" y="-120" width="30" height="228" rx="12" fill="url(#gold)" stroke="#5b421e" stroke-width="3"/><path d="M-30-149Q-70-100-35-76L-15-102L15-102L35-76Q69-102 30-149L12-124L-12-124Z" fill="url(#cham)" stroke="#473117" stroke-width="3"/><circle cy="106" r="13" fill="#151a18" stroke="#e3c287" stroke-width="5"/></g>
+ <g transform="rotate(46)"><rect x="-13" y="-125" width="26" height="232" rx="12" fill="url(#gold)" stroke="#52381c" stroke-width="3"/><path d="M-32-147Q-68-101-30-76L-14-102L14-102L30-76Q68-103 32-147L13-123L-13-123Z" fill="url(#cham)" stroke="#473117" stroke-width="3"/><circle cy="106" r="12" fill="#141916" stroke="#e4c185" stroke-width="5"/></g>
+ <path d="M-55-94L55-94L49-29Q38-13 30 12L30 53L-30 53L-30 12Q-39-13-49-29Z" fill="url(#cham)" stroke="#513b1e" stroke-width="4"/>
+ <path d="M-49-69H49M-46-54H46M-42-39H42" stroke="#3b2b18" stroke-width="8"/>
+ <circle cx="0" cy="-15" r="14" fill="#151a18" stroke="#fae2b0" stroke-width="4"/>
+</g>
+<path d="M58 357H842L867 383V522L842 550H58L33 522V383Z" fill="url(#panel)" stroke="url(#gold)" stroke-width="14"/>
+<path d="M60 379H840L846 387V521L836 527H64L54 521V387Z" fill="none" stroke="#b48d54" stroke-width="2" opacity=".85"/>
+<text x="450" y="488" font-family="Georgia, 'Times New Roman', serif" font-size="137" font-weight="900" text-anchor="middle" fill="url(#cham)" letter-spacing="-5" stroke="#f9e1b0" stroke-width="1">BAKER’S</text>
+<path d="M196 583H295M605 583H704" stroke="#bc9659" stroke-width="3"/>
+<text x="450" y="602" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="800" text-anchor="middle" fill="#f2dba9" letter-spacing="3">AUTOMOTIVE REPAIR</text>
+<text x="450" y="662" font-family="Georgia, 'Times New Roman', serif" font-size="49" font-weight="800" text-anchor="middle" fill="url(#cham)" letter-spacing="8">LLC</text>
+</g></svg>
