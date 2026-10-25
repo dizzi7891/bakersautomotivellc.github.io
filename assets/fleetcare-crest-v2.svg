@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-labelledby="title desc">
+<title id="title">Baker’s FleetCare</title><desc id="desc">Clear gold and black commercial truck shield, with distinct, large Baker’s FleetCare wording.</desc>
+<defs>
+<linearGradient id="gold" x1=".08" y1=".05" x2=".92" y2=".95" objectBoundingBox="true"><stop stop-color="#fff2c8"/><stop offset=".23" stop-color="#dab97c"/><stop offset=".47" stop-color="#a87b40"/><stop offset=".69" stop-color="#f4d79c"/><stop offset="1" stop-color="#90652d"/></linearGradient>
+<linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2b302d"/><stop offset=".55" stop-color="#111715"/><stop offset="1" stop-color="#090c0b"/></linearGradient>
+<linearGradient id="cham" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff0c6"/><stop offset=".6" stop-color="#d3a760"/><stop offset="1" stop-color="#a17738"/></linearGradient>
+<filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="11" stdDeviation="13" flood-opacity=".74"/></filter>
+</defs>
+<g filter="url(#shadow)">
+<path d="M400 30L706 140V359Q706 497 400 604Q94 497 94 359V140Z" fill="url(#panel)" stroke="url(#gold)" stroke-width="20"/>
+<path d="M400 62L671 158V359Q671 467 400 568Q129 467 129 359V158Z" fill="none" stroke="#d2ad74" stroke-width="3"/>
+<text x="400" y="156" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="900" font-size="76" fill="url(#cham)" letter-spacing="-1">BAKER’S</text>
+<g fill="url(#cham)" stroke="#312a1b" stroke-linejoin="round" stroke-width="5">
+<path d="M182 227H473Q483 227 483 241V336H170V242Q170 227 182 227Z"/>
+<path d="M483 257H552Q568 257 581 280L611 327V336H483Z"/>
+<path d="M511 274H549L567 308H511Z" fill="#171b1a" stroke="#bf975f" stroke-width="3"/>
+<path d="M186 323H601" stroke="#f2d9a4" stroke-width="7"/>
+<circle cx="267" cy="350" r="30" fill="#131717" stroke="url(#gold)" stroke-width="13"/>
+<circle cx="538" cy="350" r="30" fill="#131717" stroke="url(#gold)" stroke-width="13"/>
+<circle cx="267" cy="350" r="8" fill="#e7c58b" stroke="none"/>
+<circle cx="538" cy="350" r="8" fill="#e7c58b" stroke="none"/>
+</g>
+<path d="M110 404H690L704 423V515L687 531H113L96 515V423Z" fill="#0c1110" stroke="url(#gold)" stroke-width="12"/>
+<path d="M120 424H680V507H120Z" fill="none" stroke="#6c5636" stroke-width="3"/>
+<text x="400" y="490" text-anchor="middle" font-family="Georgia, 'Times New Roman',serif" font-size="100" font-weight="900" fill="url(#cham)" letter-spacing="-5">FLEETCARE</text>
+</g></svg>
