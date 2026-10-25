@@ -34,6 +34,6 @@ test("updated vector files are standard self-contained SVGs",()=>{
   assert.match(svg,/^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
   assert.match(svg,/<\/svg>$/);
   assert.match(svg,/<title[^>]*>.+<\/title>/);
-  assert.doesNotMatch(svg,/https?:\/\/|<image\b/i);
+  assert.doesNotMatch(svg,/<image\b|href="https?:\/\//i);
  }
 });
